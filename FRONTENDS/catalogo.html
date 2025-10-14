@@ -5,6 +5,143 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo - La Tiendita de Siempre</title>
   <link rel="stylesheet" href="styles/styles.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      color: #333;
+    }
+
+   
+    
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin-top: 0.5rem;
+      gap: 1.2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffe600;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    main h2 {
+      color: blue;
+      margin-top: 2rem;
+      border-bottom: 2px solid blue;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .producto {
+      background-color: white;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .producto:hover {
+      transform: scale(1.03);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .producto p {
+      font-weight: 500;
+      margin-top: 0.8rem;
+    }
+
+    /* Botón flotante de WhatsApp */
+    .whatsapp {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: #fff;
+      font-size: 1.8rem;
+      text-decoration: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .whatsapp:hover {
+      transform: scale(1.1);
+    }
+
+    /* Carrito flotante */
+    .carrito {
+      position: fixed;
+      bottom: 25px;
+      right: 95px;
+      background-color: blue;
+      color: #fff;
+      font-size: 1.8rem;
+      text-decoration: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .carrito:hover {
+      transform: scale(1.1);
+      background-color: blue;
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -13,6 +150,8 @@
       <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
       </ul>
     </nav>
   </header>
@@ -28,6 +167,10 @@
         <img src="img/shampoo.jpeg" alt="Shampoo">
         <p>Shampoo - $8.000</p>
       </div>
+      <div class="producto">
+        <img src="img/desodorante.jpeg" alt="Desodorante">
+        <p>Desodorante - $6.000</p>
+      </div>
     </div>
 
     <h2>🍳 Cocina</h2>
@@ -39,6 +182,10 @@
       <div class="producto">
         <img src="img/aceite.jpeg" alt="Aceite de cocina">
         <p>Aceite de cocina - $10.000</p>
+      </div>
+      <div class="producto">
+        <img src="img/sal.jpeg" alt="Sal">
+        <p>Sal 1kg - $2.500</p>
       </div>
     </div>
 
@@ -52,17 +199,19 @@
         <img src="img/gaseosa.jpeg" alt="Gaseosa">
         <p>Gaseosa 1.5L - $4.500</p>
       </div>
+      <div class="producto">
+        <img src="img/papas.jpeg" alt="Papas fritas">
+        <p>Papas fritas - $2.800</p>
+      </div>
     </div>
   </main>
 
-  <!-- Botón flotante WhatsApp -->
+  <!-- Botones flotantes -->
   <a href="https://wa.me/573001234567" class="whatsapp" target="_blank">💬</a>
-
-  <!-- Carrito flotante -->
   <a href="#" class="carrito">🛒</a>
 
   <footer>
-    <p>© 2025 La Tiendita de Siempre - Entrega segura.</p>
+    <p>© 2025 La Tiendita de Siempre - Entrega segura 🚚</p>
   </footer>
 </body>
 </html>

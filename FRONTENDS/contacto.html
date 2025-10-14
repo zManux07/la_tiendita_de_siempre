@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contáctanos - La Tiendita de Siempre</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <header>
+    <h1>📞 Contáctanos</h1>
+  </header>
+
+  <form action="procesar_contacto.php" method="POST">
+    <h2>Envíanos un mensaje</h2>
+    <label>Nombre</label>
+    <input type="text" name="nombre" required>
+
+    <label>Correo electrónico</label>
+    <input type="email" name="correo" required>
+
+    <label>Mensaje</label>
+    <textarea name="mensaje" rows="4" required></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+</html>

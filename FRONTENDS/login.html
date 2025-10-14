@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión - La Tiendita de Siempre</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <header>
+    <h1>🛒 La Tiendita de Siempre</h1>
+  </header>
+
+  <form action="procesar_login.php" method="POST">
+    <h2>Iniciar Sesión</h2>
+    <label>Correo electrónico</label>
+    <input type="email" name="email" required>
+
+    <label>Contraseña</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p style="text-align:center;">¿No tienes cuenta? <a href="registro.html">Regístrate</a></p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - La Tiendita de Siempre</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <header>
+    <h1>🛒 La Tiendita de Siempre</h1>
+  </header>
+
+  <form action="procesar_registro.php" method="POST">
+    <h2>Crear Cuenta</h2>
+    <label>Nombre completo</label>
+    <input type="text" name="nombre" required>
+
+    <label>Correo electrónico</label>
+    <input type="email" name="email" required>
+
+    <label>Contraseña</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Registrarme</button>
+  </form>
+
+  <p style="text-align:center;">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+</body>
+</html>

@@ -97,3 +97,179 @@ footer {
 .footer-info div {
   margin: 10px;
 }
+
+
+form {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+form h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+form textarea {
+  resize: none;
+}
+
+form button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #2c80b4;
+}
+
+/* === Sección de registro === */
+.registro {
+  text-align: center;
+  background: #ecf0f1;
+  padding: 30px;
+}
+
+.registro h2 {
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+/* === Formulario de contacto (footer) === */
+.form-contacto {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.form-contacto label {
+  color: white;
+}
+
+.form-contacto input,
+.form-contacto textarea {
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  border: none;
+}
+
+.form-contacto button {
+  background: #25d366;
+}
+
+.form-contacto button:hover {
+  background: #1ebe5d;
+}
+
+/* Formularios generales */
+form {
+  max-width: 400px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+form input, form textarea, form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+form button {
+  width: 100%;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+form button:hover {
+  background-color: #2980b9;
+}
+
+/* Botones del Hero */
+.hero-buttons {
+  margin-top: 20px;
+}
+.btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn-primary {
+  background: #3498db;
+  color: white;
+}
+.btn-primary:hover {
+  background: #2980b9;
+}
+.btn-secondary {
+  background: white;
+  color: #3498db;
+  border: 2px solid #3498db;
+}
+.btn-secondary:hover {
+  background: #3498db;
+  color: white;
+}
+
+/* Botones del menú */
+.btn-nav {
+  background: #1abc9c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.btn-nav:hover {
+  background: #16a085;
+}
+
+
+
