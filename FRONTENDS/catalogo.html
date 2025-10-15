@@ -7,142 +7,166 @@
   <link rel="stylesheet" href="styles/styles.css">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
       margin: 0;
-      color: #333;
+      padding: 0;
     }
-
-   
-    
-
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
+    header {
+      background-color: ;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
     }
-
     nav ul {
       list-style: none;
       display: flex;
       justify-content: center;
+      gap: 20px;
       padding: 0;
-      margin-top: 0.5rem;
-      gap: 1.2rem;
     }
-
     nav a {
-      text-decoration: none;
       color: white;
-      font-weight: 500;
-      transition: color 0.3s;
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    nav a:hover {
-      color: #ffe600;
-    }
-
     main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 1rem;
+      padding: 20px;
     }
-
-    main h2 {
-      color: blue;
-      margin-top: 2rem;
-      border-bottom: 2px solid blue;
-      display: inline-block;
-      padding-bottom: 0.3rem;
+    .filtros {
+      text-align: center;
+      margin-bottom: 20px;
     }
-
+    .filtros button {
+      margin: 5px;
+      padding: 8px 15px;
+      border: none;
+      background: blue;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .filtros button:hover {
+      background: black ;
+    }
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
     }
-
     .producto {
-      background-color: white;
-      border-radius: 15px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 10px;
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 1rem;
-      transition: transform 0.2s ease-in-out;
+      transition: 0.3s;
     }
-
     .producto:hover {
       transform: scale(1.03);
     }
-
     .producto img {
       width: 100%;
-      height: 160px;
+      border-radius: 10px;
+      height: 130px;
       object-fit: cover;
+    }
+    .producto button {
+      margin-top: 10px;
+      background: blue;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .producto button:hover {
+      background: black;
+    }
+    /* Modal vista previa */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .modal-content img {
+      width: 100%;
       border-radius: 10px;
     }
-
-    .producto p {
-      font-weight: 500;
-      margin-top: 0.8rem;
+    .close {
+      float: right;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
     }
-
-    /* Botón flotante de WhatsApp */
+    /* Botón WhatsApp */
     .whatsapp {
       position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25d366;
-      color: #fff;
-      font-size: 1.8rem;
-      text-decoration: none;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      font-size: 28px;
       border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
+      padding: 12px;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: 0.3s;
     }
-
-    .whatsapp:hover {
-      transform: scale(1.1);
-    }
+    .whatsapp:hover { transform: scale(1.1); }
 
     /* Carrito flotante */
     .carrito {
       position: fixed;
-      bottom: 25px;
-      right: 95px;
-      background-color: blue;
-      color: #fff;
-      font-size: 1.8rem;
-      text-decoration: none;
+      bottom: 90px;
+      right: 20px;
+      background: red;
+      color: black;
+      font-size: 26px;
       border-radius: 50%;
-      width: 55px;
-      height: 55px;
+      padding: 12px;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .contador {
+      position: fixed;
+      bottom: 140px;
+      right: 25px;
+      background: red;
+      color: white;
+      font-size: 14px;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
+      align-items: center;
     }
-
-    .carrito:hover {
-      transform: scale(1.1);
-      background-color: blue;
-    }
-
     footer {
-      background-color: #222;
-      color: #fff;
+      background: ;
+      color: white;
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+      padding: 10px;
+      margin-top: 40px;
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>🛒 Catálogo</h1>
@@ -150,68 +174,112 @@
       <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="catalogo.html">Catálogo</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="nosotros.html">Nosotros</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="catalogo">
-    <h2>🧼 Aseo</h2>
-    <div class="productos">
-      <div class="producto">
+  <main>
+    <div class="filtros">
+      <button onclick="filtrar('todos')">Todos</button>
+      <button onclick="filtrar('aseo')">Aseo 🧼</button>
+      <button onclick="filtrar('cocina')">Cocina 🍳</button>
+      <button onclick="filtrar('miscelaneos')">Misceláneos 🍬</button>
+    </div>
+
+    <div class="productos" id="listaProductos">
+      <!-- ASEO -->
+      <div class="producto" data-cat="aseo">
         <img src="img/jabon.jpeg" alt="Jabón de baño">
         <p>Jabón de baño - $2.000</p>
+        <button onclick="verProducto('Jabón de baño', 'img/jabon.jpeg', '$2.000')">Vista previa</button>
+        <button onclick="agregarCarrito()">Añadir al carrito</button>
       </div>
-      <div class="producto">
+
+      <div class="producto" data-cat="aseo">
         <img src="img/shampoo.jpeg" alt="Shampoo">
         <p>Shampoo - $8.000</p>
+        <button onclick="verProducto('Shampoo', 'img/shampoo.jpeg', '$8.000')">Vista previa</button>
+        <button onclick="agregarCarrito()">Añadir al carrito</button>
       </div>
-      <div class="producto">
-        <img src="img/desodorante.jpeg" alt="Desodorante">
-        <p>Desodorante - $6.000</p>
-      </div>
-    </div>
 
-    <h2>🍳 Cocina</h2>
-    <div class="productos">
-      <div class="producto">
+      <!-- COCINA -->
+      <div class="producto" data-cat="cocina">
         <img src="img/arroz.jpeg" alt="Arroz">
         <p>Arroz 1kg - $5.000</p>
+        <button onclick="verProducto('Arroz 1kg', 'img/arroz.jpeg', '$5.000')">Vista previa</button>
+        <button onclick="agregarCarrito()">Añadir al carrito</button>
       </div>
-      <div class="producto">
-        <img src="img/aceite.jpeg" alt="Aceite de cocina">
-        <p>Aceite de cocina - $10.000</p>
-      </div>
-      <div class="producto">
-        <img src="img/sal.jpeg" alt="Sal">
-        <p>Sal 1kg - $2.500</p>
-      </div>
-    </div>
 
-    <h2>🍬 Misceláneos</h2>
-    <div class="productos">
-      <div class="producto">
+      <div class="producto" data-cat="cocina">
+        <img src="img/aceite.jpeg" alt="Aceite">
+        <p>Aceite de cocina - $10.000</p>
+        <button onclick="verProducto('Aceite de cocina', 'img/aceite.jpeg', '$10.000')">Vista previa</button>
+        <button onclick="agregarCarrito()">Añadir al carrito</button>
+      </div>
+
+      <!-- MISCELÁNEOS -->
+      <div class="producto" data-cat="miscelaneos">
         <img src="img/galletas.jpeg" alt="Galletas">
         <p>Galletas - $3.000</p>
+        <button onclick="verProducto('Galletas', 'img/galletas.jpeg', '$3.000')">Vista previa</button>
+        <button onclick="agregarCarrito()">Añadir al carrito</button>
       </div>
-      <div class="producto">
+
+      <div class="producto" data-cat="miscelaneos">
         <img src="img/gaseosa.jpeg" alt="Gaseosa">
         <p>Gaseosa 1.5L - $4.500</p>
-      </div>
-      <div class="producto">
-        <img src="img/papas.jpeg" alt="Papas fritas">
-        <p>Papas fritas - $2.800</p>
+        <button onclick="verProducto('Gaseosa 1.5L', 'img/gaseosa.jpeg', '$4.500')">Vista previa</button>
+        <button onclick="agregarCarrito()">Añadir al carrito</button>
       </div>
     </div>
   </main>
 
+  <!-- Modal de vista previa -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <img id="modalImg" src="" alt="">
+      <h3 id="modalTitulo"></h3>
+      <p id="modalPrecio"></p>
+      <button onclick="agregarCarrito()">Añadir al carrito 🛒</button>
+    </div>
+  </div>
+
   <!-- Botones flotantes -->
   <a href="https://wa.me/573001234567" class="whatsapp" target="_blank">💬</a>
-  <a href="#" class="carrito">🛒</a>
+  <div class="carrito" onclick="alert('Carrito aún en desarrollo 😅')">🛒</div>
+  <div class="contador" id="contador">0</div>
 
   <footer>
-    <p>© 2025 La Tiendita de Siempre - Entrega segura 🚚</p>
+    <p>© 2025 La Tiendita de Siempre - Entrega segura.</p>
   </footer>
+
+  <script>
+    // Filtrar categorías
+    function filtrar(categoria) {
+      let productos = document.querySelectorAll('.producto');
+      productos.forEach(p => {
+        p.style.display = (categoria === 'todos' || p.dataset.cat === categoria) ? 'block' : 'none';
+      });
+    }
+
+    // Vista previa modal
+    function verProducto(nombre, imagen, precio) {
+      document.getElementById('modal').style.display = 'flex';
+      document.getElementById('modalImg').src = imagen;
+      document.getElementById('modalTitulo').textContent = nombre;
+      document.getElementById('modalPrecio').textContent = precio;
+    }
+    function cerrarModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    // Carrito contador
+    let contador = 0;
+    function agregarCarrito() {
+      contador++;
+      document.getElementById('contador').textContent = contador;
+    }
+  </script>
 </body>
 </html>
