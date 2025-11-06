@@ -1,285 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo - La Tiendita de Siempre</title>
-  <link rel="stylesheet" href="styles/styles.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: ;
-      color: white;
-      padding: 15px 20px;
-      text-align: center;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 0;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      padding: 20px;
-    }
-    .filtros {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .filtros button {
-      margin: 5px;
-      padding: 8px 15px;
-      border: none;
-      background: blue;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .filtros button:hover {
-      background: black ;
-    }
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-    }
-    .producto {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 10px;
-      text-align: center;
-      transition: 0.3s;
-    }
-    .producto:hover {
-      transform: scale(1.03);
-    }
-    .producto img {
-      width: 100%;
-      border-radius: 10px;
-      height: 130px;
-      object-fit: cover;
-    }
-    .producto button {
-      margin-top: 10px;
-      background: blue;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .producto button:hover {
-      background: black;
-    }
-    /* Modal vista previa */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-    }
-    .modal-content img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .close {
-      float: right;
-      font-size: 18px;
-      cursor: pointer;
-      color: #333;
-    }
-    /* Botón WhatsApp */
-    .whatsapp {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25d366;
-      color: white;
-      font-size: 28px;
-      border-radius: 50%;
-      padding: 12px;
-      text-decoration: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: 0.3s;
-    }
-    .whatsapp:hover { transform: scale(1.1); }
 
-    /* Carrito flotante */
-    .carrito {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
-      background: red;
-      color: black;
-      font-size: 26px;
-      border-radius: 50%;
-      padding: 12px;
-      text-decoration: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .contador {
-      position: fixed;
-      bottom: 140px;
-      right: 25px;
-      background: red;
-      color: white;
-      font-size: 14px;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    footer {
-      background: ;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      margin-top: 40px;
-    }
-  </style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Catálogo - La Tiendita de Siempre</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
-  <header>
-    <h1>🛒 Catálogo</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="catalogo.html">Catálogo</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">La Tiendita de Siempre</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="catalogo.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="ubicacion.html">Ubicación</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <main>
-    <div class="filtros">
-      <button onclick="filtrar('todos')">Todos</button>
-      <button onclick="filtrar('aseo')">Aseo 🧼</button>
-      <button onclick="filtrar('cocina')">Cocina 🍳</button>
-      <button onclick="filtrar('miscelaneos')">Misceláneos 🍬</button>
+  <main class="container-main">
+    <h2 class="text-primary mb-3">Catálogo</h2>
+
+    <!-- SECCIÓN ASEO -->
+    <h4>Aseo</h4>
+    <div class="products-grid mb-4">
+      <div class="product-card text-center p-3">
+        <img src="img/producto4.jpeg" alt="Jabón" style="height:160px;object-fit:contain;background:#f8f9fa;border-radius:10px;">
+        <div class="title mt-2 fw-semibold">Jabón de baño</div>
+        <div class="price text-primary fw-bold">$2.000</div>
+        <div class="actions mt-2">
+          <button class="btn btn-outline-primary btn-add-cart">Añadir al carrito</button>
+        </div>
+      </div>
+      <div class="product-card text-center p-3">
+        <img src="img/producto5.jpeg" alt="Shampoo" style="height:160px;object-fit:contain;background:#f8f9fa;border-radius:10px;">
+        <div class="title mt-2 fw-semibold">Shampoo</div>
+        <div class="price text-primary fw-bold">$8.000</div>
+        <div class="actions mt-2">
+          <button class="btn btn-outline-primary btn-add-cart">Añadir al carrito</button>
+        </div>
+      </div>
     </div>
 
-    <div class="productos" id="listaProductos">
-      <!-- ASEO -->
-      <div class="producto" data-cat="aseo">
-        <img src="img/jabon.jpeg" alt="Jabón de baño">
-        <p>Jabón de baño - $2.000</p>
-        <button onclick="verProducto('Jabón de baño', 'img/jabon.jpeg', '$2.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
+    <!-- SECCIÓN COCINA -->
+    <h4>Cocina</h4>
+    <div class="products-grid mb-4">
+      <div class="product-card text-center p-3">
+        <img src="img/producto1.jpeg" alt="Arroz" style="height:160px;object-fit:contain;background:#f8f9fa;border-radius:10px;">
+        <div class="title mt-2 fw-semibold">Arroz 1kg</div>
+        <div class="price text-primary fw-bold">$5.000</div>
+        <div class="actions mt-2">
+          <button class="btn btn-outline-primary btn-add-cart">Añadir al carrito</button>
+        </div>
       </div>
-
-      <div class="producto" data-cat="aseo">
-        <img src="img/shampoo.jpeg" alt="Shampoo">
-        <p>Shampoo - $8.000</p>
-        <button onclick="verProducto('Shampoo', 'img/shampoo.jpeg', '$8.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
+      <div class="product-card text-center p-3">
+        <img src="img/producto2.jpeg" alt="Aceite" style="height:160px;object-fit:contain;background:#f8f9fa;border-radius:10px;">
+        <div class="title mt-2 fw-semibold">Aceite</div>
+        <div class="price text-primary fw-bold">$10.000</div>
+        <div class="actions mt-2">
+          <button class="btn btn-outline-primary btn-add-cart">Añadir al carrito</button>
+        </div>
       </div>
+    </div>
 
-      <!-- COCINA -->
-      <div class="producto" data-cat="cocina">
-        <img src="img/arroz.jpeg" alt="Arroz">
-        <p>Arroz 1kg - $5.000</p>
-        <button onclick="verProducto('Arroz 1kg', 'img/arroz.jpeg', '$5.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
+    <!-- SECCIÓN MISCELÁNEOS -->
+    <h4>Misceláneos</h4>
+    <div class="products-grid mb-4">
+      <div class="product-card text-center p-3">
+        <img src="img/producto6.jpeg" alt="Galletas" style="height:160px;object-fit:contain;background:#f8f9fa;border-radius:10px;">
+        <div class="title mt-2 fw-semibold">Galletas</div>
+        <div class="price text-primary fw-bold">$3.000</div>
+        <div class="actions mt-2">
+          <button class="btn btn-outline-primary btn-add-cart">Añadir al carrito</button>
+        </div>
       </div>
-
-      <div class="producto" data-cat="cocina">
-        <img src="img/aceite.jpeg" alt="Aceite">
-        <p>Aceite de cocina - $10.000</p>
-        <button onclick="verProducto('Aceite de cocina', 'img/aceite.jpeg', '$10.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
-      </div>
-
-      <!-- MISCELÁNEOS -->
-      <div class="producto" data-cat="miscelaneos">
-        <img src="img/galletas.jpeg" alt="Galletas">
-        <p>Galletas - $3.000</p>
-        <button onclick="verProducto('Galletas', 'img/galletas.jpeg', '$3.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
-      </div>
-
-      <div class="producto" data-cat="miscelaneos">
-        <img src="img/gaseosa.jpeg" alt="Gaseosa">
-        <p>Gaseosa 1.5L - $4.500</p>
-        <button onclick="verProducto('Gaseosa 1.5L', 'img/gaseosa.jpeg', '$4.500')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
+      <div class="product-card text-center p-3">
+        <img src="img/producto3.jpeg" alt="Gaseosa" style="height:160px;object-fit:contain;background:#f8f9fa;border-radius:10px;">
+        <div class="title mt-2 fw-semibold">Gaseosa 1.5L</div>
+        <div class="price text-primary fw-bold">$4.500</div>
+        <div class="actions mt-2">
+          <button class="btn btn-outline-primary btn-add-cart">Añadir al carrito</button>
+        </div>
       </div>
     </div>
   </main>
 
-  <!-- Modal de vista previa -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <img id="modalImg" src="" alt="">
-      <h3 id="modalTitulo"></h3>
-      <p id="modalPrecio"></p>
-      <button onclick="agregarCarrito()">Añadir al carrito 🛒</button>
+  <!-- FABs -->
+  <a href="https://wa.me/573182569054" class="fab whatsapp" target="_blank" title="WhatsApp">💬</a>
+  <a href="carrito.html" class="fab cart" title="Carrito">🛒 <span class="count" id="globalCartCount">0</span></a>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 La Tiendita de Siempre</p>
     </div>
-  </div>
-
-  <!-- Botones flotantes -->
-  <a href="https://wa.me/573001234567" class="whatsapp" target="_blank">💬</a>
-  <div class="carrito" onclick="alert('Carrito aún en desarrollo 😅')">🛒</div>
-  <div class="contador" id="contador">0</div>
-
-  <footer>
-    <p>© 2025 La Tiendita de Siempre - Entrega segura.</p>
   </footer>
 
-  <script>
-    // Filtrar categorías
-    function filtrar(categoria) {
-      let productos = document.querySelectorAll('.producto');
-      productos.forEach(p => {
-        p.style.display = (categoria === 'todos' || p.dataset.cat === categoria) ? 'block' : 'none';
-      });
-    }
-
-    // Vista previa modal
-    function verProducto(nombre, imagen, precio) {
-      document.getElementById('modal').style.display = 'flex';
-      document.getElementById('modalImg').src = imagen;
-      document.getElementById('modalTitulo').textContent = nombre;
-      document.getElementById('modalPrecio').textContent = precio;
-    }
-    function cerrarModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
-
-    // Carrito contador
-    let contador = 0;
-    function agregarCarrito() {
-      contador++;
-      document.getElementById('contador').textContent = contador;
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="javascript/scripts.js"></script>
 </body>
+
 </html>

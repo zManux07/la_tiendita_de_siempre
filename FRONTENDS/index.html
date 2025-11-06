@@ -1,182 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Tiendita de Siempre</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>La Tiendita de Siempre - Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css">
-  <style>
-    /* Contador carrito */
-    .contador {
-      position: fixed;
-      bottom: 90px;
-      right: 25px;
-      background: red;
-      color: white;
-      font-size: 14px;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    /* Modal vista previa */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-    }
-    .modal-content img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .close {
-      float: right;
-      font-size: 20px;
-      cursor: pointer;
-      color: #333;
-    }
-    .producto button {
-      margin-top: 5px;
-      background: #2e7d32;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .producto button:hover {
-      background: #4caf50;
-    }
-  </style>
 </head>
+
 <body>
-  <!-- HEADER -->
-  <header>
-    <h1>🛒 La Tiendita de Siempre</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="catalogo.html">Catálogo</a></li>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="ubicacion.html">Ubicación</a></li>
-        <li><a href="contacto.html">Contáctanos</a></li>
-        <li><a href="login.html" class="btn-nav">Iniciar Sesión</a></li>
-        <li><a href="registro.html" class="btn-nav">Registrarse</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <h2>Bienvenido a tu tienda de confianza 🏡</h2>
-    <p>Encuentra todo lo que necesitas para tu hogar en un solo lugar. Productos de calidad, precios justos y atención cercana.</p>
-    <div class="hero-buttons">
-      <a href="catalogo.html" class="btn-primary">Ver Catálogo</a>
-      <a href="registro.html" class="btn-secondary">Crear Cuenta</a>
-    </div>
-  </section>
-
-  <!-- PRODUCTOS POPULARES -->
-  <section class="populares">
-    <h2>⭐ Productos Populares</h2>
-    <div class="productos">
-      <div class="producto">
-        <img src="img/arroz.jpeg" alt="Arroz">
-        <p><strong>Arroz 1kg</strong><br>$5.000</p>
-        <button onclick="verProducto('Arroz 1kg', 'img/arroz.jpeg', '$5.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
-      </div>
-      <div class="producto">
-        <img src="img/aceite.jpeg" alt="Aceite">
-        <p><strong>Aceite de cocina</strong><br>$10.000</p>
-        <button onclick="verProducto('Aceite de cocina', 'img/aceite.jpeg', '$10.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
-      </div>
-      <div class="producto">
-        <img src="img/galletas.jpeg" alt="Galletas">
-        <p><strong>Galletas surtidas</strong><br>$3.000</p>
-        <button onclick="verProducto('Galletas surtidas', 'img/galletas.jpeg', '$3.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
-      </div>
-      <div class="producto">
-        <img src="img/shampoo.jpeg" alt="Shampoo">
-        <p><strong>Shampoo</strong><br>$8.000</p>
-        <button onclick="verProducto('Shampoo', 'img/shampoo.jpeg', '$8.000')">Vista previa</button>
-        <button onclick="agregarCarrito()">Añadir al carrito</button>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">La Tiendita de Siempre</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="ubicacion.html">Ubicación</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
+        </ul>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- Modal vista previa -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <img id="modalImg" src="" alt="">
-      <h3 id="modalTitulo"></h3>
-      <p id="modalPrecio"></p>
-      <button onclick="agregarCarrito()">Añadir al carrito 🛒</button>
+  <main class="container-main">
+    <section class="hero mb-4">
+      <h1 class="display-5" style="color:var(--primary)">Tu mini supermercado, cerca de ti</h1>
+      <p class="lead text-muted">Productos frescos, atención rápida y entrega segura.</p>
+      <a href="catalogo.html" class="btn btn-primary btn-lg">Ver catálogo</a>
+    </section>
+
+    <section class="mb-4">
+<div id="carouselDest" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner" style="max-width: 700px; margin: auto; border-radius: 15px; overflow: hidden;">
+    
+    <div class="carousel-item active">
+      <img src="img/producto1.jpeg" class="d-block w-100" alt="dest1"
+        style="height: 260px; object-fit: contain; background-color: #f8f9fa;">
+      <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-50 rounded p-2">
+        <h5>Producto Destacado 1</h5>
+        <p>Delicioso arroz Diana.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="img/producto2.jpeg" class="d-block w-100" alt="dest2"
+        style="height: 260px; object-fit: contain; background-color: #f8f9fa;">
+      <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-50 rounded p-2">
+        <h5>Producto Destacado 2</h5>
+        <p>Excelente aceite.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="img/producto3.jpeg" class="d-block w-100" alt="dest3"
+        style="height: 260px; object-fit: contain; background-color: #f8f9fa;">
+      <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-50 rounded p-2">
+        <h5>Producto Destacado 3</h5>
+        <p>Refrescante Coca-Cola.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselDest" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselDest" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+    </section>
+
+    <section>
+      <h3 class="mb-3">Productos destacados </h3>
+    <div class="products-grid" id="productos">
+  <div class="card text-center p-3" style="width: 14rem;">
+    <img src="img/producto1.jpeg" class="card-img-top" alt="Arroz Diana" style="height:150px;object-fit:contain;">
+    <div class="card-body">
+      <h5 class="card-title">Arroz Diana</h5>
+      <p class="card-text text-muted">$20.000</p>
+      <button class="btn btn-primary btn-add-cart">Agregar al carrito</button>
     </div>
   </div>
 
-  <!-- BOTONES FLOTANTES -->
-  <a href="https://wa.me/573001234567" class="whatsapp" target="_blank">💬</a>
-  <div class="carrito" onclick="alert('🛠️ El carrito aún está en desarrollo. ¡Próximamente podrás ver tus productos!')">🛒</div>
-  <div class="contador" id="contador">0</div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-info">
-      <div>
-        <h3>📞 Contáctanos</h3>
-        <p>Teléfono: +57 318 256 9054</p>
-        <p>Email: tutiendita@gmail.com</p>
-      </div>
-      <div>
-        <h3>📍 Ubicación</h3>
-        <p>Barrio La Gaviota, Ibagué, Colombia</p>
-      </div>
-      <div>
-        <h3>🕒 Horario</h3>
-        <p>Lunes a Sábado: 8:00 a.m. - 8:00 p.m.</p>
-        <p>Domingos: 9:00 a.m. - 5:00 p.m.</p>
-      </div>
+  <div class="card text-center p-3" style="width: 14rem;">
+    <img src="img/producto2.jpeg" class="card-img-top" alt="Aceite Rico" style="height:150px;object-fit:contain;">
+    <div class="card-body">
+      <h5 class="card-title">Aceite Rico</h5>
+      <p class="card-text text-muted">$15.000</p>
+      <button class="btn btn-primary btn-add-cart">Agregar al carrito</button>
     </div>
-    <p>© 2025 La Tiendita de Siempre - Entrega segura.</p>
+  </div>
+
+  <div class="card text-center p-3" style="width: 14rem;">
+    <img src="img/producto3.jpeg" class="card-img-top" alt="Coca-Cola" style="height:150px;object-fit:contain;">
+    <div class="card-body">
+      <h5 class="card-title">Coca-Cola</h5>
+      <p class="card-text text-muted">$5.000</p>
+      <button class="btn btn-primary btn-add-cart">Agregar al carrito</button>
+    </div>
+  </div>
+</div>
+
+    </section>
+  </main>
+
+  <a href="https://wa.me/573182569054" class="fab whatsapp" target="_blank" title="WhatsApp">💬</a>
+  <a href="carrito.html" class="fab cart" title="Carrito">🛒 <span class="count" id="globalCartCount">0</span></a>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 La Tiendita de Siempre</p>
+    </div>
   </footer>
 
-  <script>
-    // --- Vista previa (modal) ---
-    function verProducto(nombre, imagen, precio) {
-      document.getElementById('modal').style.display = 'flex';
-      document.getElementById('modalImg').src = imagen;
-      document.getElementById('modalTitulo').textContent = nombre;
-      document.getElementById('modalPrecio').textContent = precio;
-    }
-    function cerrarModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
-
-    // --- Carrito contador ---
-    let contador = 0;
-    function agregarCarrito() {
-      contador++;
-      document.getElementById('contador').textContent = contador;
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="javascript/scripts.js"></script>
 </body>
+
 </html>
