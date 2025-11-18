@@ -4,7 +4,7 @@ require 'conexion.php';
 if($_SERVER['REQUEST_METHOD'] !== 'POST'){ header('Location: ../registro.html'); exit; }
 $nombre = trim($_POST['nombre'] ?? '');
 $email = trim($_POST['email'] ?? '');
-$pass = $_POST['password'] ?? '';
+$pass = password_hash($_POST['password'], PASSWORD_DEFAULT) ?? '';
 if(!$nombre || !$email || !$pass){ header('Location: ../registro.html?error=1'); exit; }
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 $stmt = $pdo->prepare('INSERT INTO usuario (nomUSUARIO, emailUSUARIO, pass, rolUSUARIO) VALUES (?,?,?,?)');
