@@ -1,19 +1,140 @@
+CREATE DATABASE IF NOT EXISTS latienditadesiempre;
+USE latienditadesiempre;
 
-INSERT INTO usuario (numdocUSUARIO, tipodocumenUSUARIO, nomUSUARIO, direcUSUARIO, telUSUARIO, emailUSUARIO, pass, rolUSUARIO, cargoUSUARIO)
-VALUES (123456, 'CC', 'Usuario Demo', 'Direccion 123', 3001234567, 'demo@example.com', 
-       '$2y$10$abcdefghijklmnopqrstuv/12345678901234567890123456789012', 'cliente', 'N/A');
+CREATE TABLE IF NOT EXISTS categoria (
+  idCATEGORIA INT AUTO_INCREMENT PRIMARY KEY,
+  nomCATEGORIA VARCHAR(100) NOT NULL,
+  descripcionCATEGORIA TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO categoria (nomCATEGORIA, descripcionCATEGORIA)
-VALUES ('Bebidas', 'Categoría de bebidas'),
-       ('Aseo', 'Categoría de aseo'),
-       ('Misceláneos', 'Varios productos');
+CREATE TABLE IF NOT EXISTS proveedor (
+  idPROVEEDOR INT AUTO_INCREMENT PRIMARY KEY,
+  nomPROVEEDOR VARCHAR(150) NOT NULL,
+  telPROVEEDOR VARCHAR(20),
+  direcPROVEEDOR TEXT,
+  emailPROVEEDOR VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO proveedor (nomPROVEEDOR, telPROVEEDOR, direcPROVEEDOR, emailPROVEEDOR)
-VALUES ('Proveedor 1', '3001112233', 'Calle 10 #20-30', 'prov1@example.com'),
-       ('Proveedor 2', '3002223344', 'Carrera 15 #40-20', 'prov2@example.com');
+CREATE TABLE IF NOT EXISTS usuario (
+  idUSUARIO INT AUTO_INCREMENT PRIMARY KEY,
+  numdocUSUARIO VARCHAR(20) NOT NULL,
+  tipodocumenUSUARIO VARCHAR(10),
+  nomUSUARIO VARCHAR(150) NOT NULL,
+  direcUSUARIO TEXT,
+  telUSUARIO VARCHAR(20),
+  emailUSUARIO VARCHAR(100) UNIQUE NOT NULL,
+  pass VARCHAR(255) NOT NULL,
+  rolUSUARIO VARCHAR(20) DEFAULT 'cliente',
+  cargoUSUARIO VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO producto (nomPRODUCTO, marcaPRODUCTO, precioPRODUCTO, cantidadenstockPRODUCTO, fechaingrePRODUCTO, unidadMedidaPRODUCTO, fotoPRODUCTO, idCATEGORIA, idPROVEEDOR)
-VALUES 
-('Coca Cola 1.5L', 'Coca Cola', 5000, 50, CURDATE(), 'Unidad', 'producto1.jpeg', 1, 1),
-('Detergente 1Kg', 'Ariel', 12000, 30, CURDATE(), 'Unidad', 'producto2.jpeg', 2, 2),
-('Galletas Festival', 'Noel', 3000, 40, CURDATE(), 'Paquete', 'producto6.jpeg', 3, 1);
+CREATE TABLE IF NOT EXISTS empleados (
+  id_empleado INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(150) NOT NULL,
+  cargo VARCHAR(100) NOT NULL,
+  correo VARCHAR(100),
+  telefono VARCHAR(20),
+  fecha_ingreso DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS producto (
+  idPRODUCTO INT AUTO_INCREMENT PRIMARY KEY,
+  nomPRODUCTO VARCHAR(200) NOT NULL,
+  marcaPRODUCTO VARCHAR(100),
+  precioPRODUCTO DECIMAL(10, 2) NOT NULL,
+  cantidadenstockPRODUCTO INT DEFAULT 0,
+  fechaingrePRODUCTO DATE,
+  unidadMedidaPRODUCTO VARCHAR(20),
+  fotoPRODUCTO VARCHAR(255),
+  idCATEGORIA INT,
+  idPROVEEDOR INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (idCATEGORIA) REFERENCES categoria(idCATEGORIA),
+  FOREIGN KEY (idPROVEEDOR) REFERENCES proveedor(idPROVEEDOR)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS entrada (
+  idENTRADA INT AUTO_INCREMENT PRIMARY KEY,
+  fechaIngreENTRADA DATE,
+  cantIngreENTRADA INT NOT NULL,
+  idPRODUCTO INT NOT NULL,
+  idUSUARIO INT NOT NULL,
+  codigo VARCHAR(100),
+  precioCompraUnid DECIMAL(10, 2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (idPRODUCTO) REFERENCES producto(idPRODUCTO),
+  FOREIGN KEY (idUSUARIO) REFERENCES usuario(idUSUARIO)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS carrito (
+  idCarrito INT AUTO_INCREMENT PRIMARY KEY,
+  idUsuario INT NOT NULL,
+  idProducto INT NOT NULL,
+  cantidad INT NOT NULL DEFAULT 1,
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (idUsuario) REFERENCES usuario(idUSUARIO),
+  FOREIGN KEY (idProducto) REFERENCES producto(idPRODUCTO)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS factura (
+  idFACTURA INT AUTO_INCREMENT PRIMARY KEY,
+  fechaFACTURA TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  idUSUARIO INT NOT NULL,
+  totalFACTURA DECIMAL(12, 2) NOT NULL,
+  FOREIGN KEY (idUSUARIO) REFERENCES usuario(idUSUARIO)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS detallesalida (
+  idDETALLE INT AUTO_INCREMENT PRIMARY KEY,
+  idFACTURA INT NOT NULL,
+  idPRODUCTO INT NOT NULL,
+  cantiSalidaDETALLESALIDA INT NOT NULL,
+  valorunitarioDETALLESALIDA DECIMAL(10, 2) NOT NULL,
+  valorTotalventaDETALLESALIDA DECIMAL(12, 2) NOT NULL,
+  FOREIGN KEY (idFACTURA) REFERENCES factura(idFACTURA),
+  FOREIGN KEY (idPRODUCTO) REFERENCES producto(idPRODUCTO)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pagos (
+  idPago INT AUTO_INCREMENT PRIMARY KEY,
+  idFactura INT NOT NULL,
+  metodo_pago VARCHAR(50),
+  monto DECIMAL(12, 2) NOT NULL,
+  fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (idFactura) REFERENCES factura(idFACTURA)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS mensajes_contacto (
+  id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(150) NOT NULL,
+  correo VARCHAR(100) NOT NULL,
+  telefono VARCHAR(20),
+  mensaje TEXT NOT NULL,
+  fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO categoria (nomCATEGORIA, descripcionCATEGORIA) VALUES
+('Alimentos', 'Productos alimenticios'),
+('Bebidas', 'Bebidas diversas'),
+('Higiene', 'Productos de higiene personal'),
+('Limpieza', 'Productos de limpieza del hogar'),
+('Electrónica', 'Artículos electrónicos');
+
+INSERT INTO proveedor (nomPROVEEDOR, telPROVEEDOR, direcPROVEEDOR, emailPROVEEDOR) VALUES
+('Distribuidora Central', '+57 310 1234567', 'Cra 10 #20-30', 'contacto@distcentral.com'),
+('Importaciones del Norte', '+57 310 9876543', 'Cra 5 #10-20', 'info@imporznorte.com'),
+('Proveedora Nacional', '+57 310 5555555', 'Cra 15 #30-40', 'ventas@provnacional.com');
+
+INSERT INTO usuario (numdocUSUARIO, tipodocumenUSUARIO, nomUSUARIO, direcUSUARIO, telUSUARIO, emailUSUARIO, pass, rolUSUARIO) VALUES
+('12345678', 'CC', 'Administrador', 'Cra 1 #1-1', '+57 310 0000001', 'admin@tiendita.com', '$2y$10$YourHashedPasswordHere', 'admin');
+
+CREATE INDEX idx_producto_categoria ON producto(idCATEGORIA);
+CREATE INDEX idx_producto_proveedor ON producto(idPROVEEDOR);
+CREATE INDEX idx_usuario_email ON usuario(emailUSUARIO);
+CREATE INDEX idx_carrito_usuario ON carrito(idUsuario);
+CREATE INDEX idx_factura_usuario ON factura(idUSUARIO);
+CREATE INDEX idx_entrada_producto ON entrada(idPRODUCTO);
