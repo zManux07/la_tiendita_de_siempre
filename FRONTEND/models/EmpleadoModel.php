@@ -36,11 +36,34 @@ class EmpleadoModel {
         ]);
     }
 
-    public function contar() {
-        $query = "SELECT COUNT(*) as total FROM empleados";
+    public function actualizar($id, $datos) {
+        $query = "UPDATE empleados SET
+                    nombre = ?,
+                    cargo = ?,
+                    correo = ?,
+                    telefono = ?,
+                    fecha_ingreso = ?
+                  WHERE id_empleado = ?";
+
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total'];
+
+        return $stmt->execute([
+            $datos['nombre'],
+            $datos['cargo'],
+            $datos['correo'],
+            $datos['telefono'],
+            $datos['fecha_ingreso'],
+            $id
+        ]);
+    }
+
+    public function eliminar($id) {
+        $stmt = $this->db->prepare("DELETE FROM empleados WHERE id_empleado = ?");
+        return $stmt->execute([$id]);
+    }
+
+    public function contar() {
+        return $this->db->query("SELECT COUNT(*) FROM empleados")->fetchColumn();
     }
 }
+

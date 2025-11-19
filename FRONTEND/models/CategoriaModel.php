@@ -39,4 +39,21 @@ class CategoriaModel {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
+public function actualizar($id, $datos) {
+    $query = "UPDATE categoria 
+              SET nomCATEGORIA = ?, descripcionCATEGORIA = ?
+              WHERE idCATEGORIA = ?";
+
+    $stmt = $this->db->prepare($query);
+    return $stmt->execute([
+        $datos['nomCATEGORIA'],
+        $datos['descripcionCATEGORIA'],
+        $id
+    ]);
+}
+
+    public function eliminar($id) {
+        $stmt = $this->db->prepare("DELETE FROM categoria WHERE idCATEGORIA = ?");
+        return $stmt->execute([$id]);
+    }
 }

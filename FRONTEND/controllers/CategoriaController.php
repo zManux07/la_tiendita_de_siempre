@@ -40,4 +40,19 @@ class CategoriaController {
 
         return 'views/admin/crear_categoria.php';
     }
+    public function editar() {
+    $id = $_GET['id'] ?? null;
+    if (!$id) { header("Location: index.php?route=admin/dashboard"); exit; }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->categoriaModel->actualizar($id, $_POST['nomCATEGORIA']);
+        $_SESSION['success'] = "Categoría actualizada";
+        header("Location: index.php?route=admin/dashboard");
+        exit;
+    }
+
+    $categoria = $this->categoriaModel->obtenerPorId($id);
+    return "views/admin/editar_categoria.php";
+}
+
 }

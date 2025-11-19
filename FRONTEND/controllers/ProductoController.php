@@ -78,4 +78,46 @@ class ProductoController {
     'categorias' => $categorias,
     'proveedores' => $proveedores ];
     }
+    public function editar() {
+    $id = $_GET['id'] ?? null;
+    if (!$id) {
+        header('Location: index.php?route=admin/dashboard');
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $datos = [
+            'nomPRODUCTO' => $_POST['nomPRODUCTO'] ?? '',
+            'marcaPRODUCTO' => $_POST['marcaPRODUCTO'] ?? '',
+            'precioPRODUCTO' => $_POST['precioPRODUCTO'] ?? 0,
+            'unidadMedidaPRODUCTO' => $_POST['unidadMedidaPRODUCTO'] ?? '',
+            'idCATEGORIA' => $_POST['idCATEGORIA'] ?? null,
+            'idPROVEEDOR' => $_POST['idPROVEEDOR'] ?? null
+        ];
+
+        // SI SUBE NUEVA IMAGEN
+        if (!empty($_FILES['fotoPRODUCTO']['name'])) {
+            $archivo = $_FILES['fotoPRODUCTO'];
+            $nombre = uniqid() . '_' . basename($archivo['name']);
+            $ruta = 'assets/img/' . $nombre;
+
+            if (move_uploaded_file($archivo['tmp_name'], $ruta)) {
+                $datos['fotoPRODUCTO'] = $ruta;
+            }
+        }
+
+        $this->productoModel->actualizar($id, $datos);
+        $_SESSION['success'] = 'Producto actualizado';
+
+        header('Location: index.php?route=admin/dashboard');
+        exit;
+    }
+
+    $producto = $this->productoModel->obtenerPorId($id);
+    $categorias = $this->categoriaModel->obtenerTodas();
+    $proveedores = $this->proveedorModel->obtenerTodos();
+
+    return 'views/admin/editar_producto.php';
+}
+
 }

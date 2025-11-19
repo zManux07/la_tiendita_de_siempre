@@ -35,11 +35,27 @@ class ProveedorModel {
         ]);
     }
 
-    public function contar() {
-        $query = "SELECT COUNT(*) as total FROM proveedor";
+    public function actualizar($id, $datos) {
+        $query = "UPDATE proveedor SET
+                    nomPROVEEDOR = ?,
+                    telPROVEEDOR = ?,
+                    direcPROVEEDOR = ?,
+                    emailPROVEEDOR = ?
+                  WHERE idPROVEEDOR = ?";
+
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total'];
+        return $stmt->execute([
+            $datos['nomPROVEEDOR'],
+            $datos['telPROVEEDOR'],
+            $datos['direcPROVEEDOR'],
+            $datos['emailPROVEEDOR'],
+            $id
+        ]);
+    }
+
+    public function eliminar($id) {
+        $stmt = $this->db->prepare("DELETE FROM proveedor WHERE idPROVEEDOR = ?");
+        return $stmt->execute([$id]);
     }
 }
+

@@ -43,4 +43,24 @@ class EmpleadoController {
 
         return 'views/admin/crear_empleado.php';
     }
+    public function editar() {
+    $id = $_GET['id'] ?? null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $datos = [
+            'nombreEMP' => $_POST['nombreEMP'],
+            'cargoEMP' => $_POST['cargoEMP'],
+            'salarioEMP' => $_POST['salarioEMP']
+        ];
+        $this->empleadoModel->actualizar($id, $datos);
+
+        $_SESSION['success'] = "Empleado actualizado";
+        header("Location: index.php?route=admin/dashboard");
+        exit;
+    }
+
+    $empleado = $this->empleadoModel->obtenerPorId($id);
+    return "views/admin/editar_empleado.php";
+}
+
 }

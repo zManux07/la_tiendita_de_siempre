@@ -42,4 +42,18 @@ class ProveedorController {
 
         return 'views/admin/crear_proveedor.php';
     }
+    public function editar() {
+    $id = $_GET['id'] ?? null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->proveedorModel->actualizar($id, $_POST['nomPROVEEDOR']);
+        $_SESSION['success'] = "Proveedor actualizado";
+        header("Location: index.php?route=admin/dashboard");
+        exit;
+    }
+
+    $proveedor = $this->proveedorModel->obtenerPorId($id);
+    return "views/admin/editar_proveedor.php";
+}
+
 }

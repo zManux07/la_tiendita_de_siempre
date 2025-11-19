@@ -154,6 +154,46 @@ switch ($route) {
         require $data['view'];
         break;
 
+    // PRODUCTO EDITAR
+case 'admin/producto/editar':
+    $controller = new ProductoController(
+        new ProductoModel($conn),
+        new CategoriaModel($conn),
+        new ProveedorModel($conn)
+    );
+    $view = $controller->editar();
+    require $view;
+    break;
+
+// CATEGORIA EDITAR
+case 'admin/categoria/editar':
+    $controller = new CategoriaController(new CategoriaModel($conn));
+    $view = $controller->editar();
+    require $view;
+    break;
+
+// PROVEEDOR EDITAR
+case 'admin/proveedor/editar':
+    $controller = new ProveedorController(new ProveedorModel($conn));
+    $view = $controller->editar();
+    require $view;
+    break;
+
+// USUARIO EDITAR
+case 'admin/usuario/editar':
+    $controller = new UsuarioController(new UsuarioModel($conn));
+    $view = $controller->editar();
+    require $view;
+    break;
+
+// EMPLEADO EDITAR
+case 'admin/empleado/editar':
+    $controller = new EmpleadoController(new EmpleadoModel($conn));
+    $view = $controller->editar();
+    require $view;
+    break;
+
+
     case 'admin/mensajes':
         $controller = new MensajeController(new MensajeModel($conn));
         $view = $controller->listar();

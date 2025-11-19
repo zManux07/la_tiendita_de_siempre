@@ -100,4 +100,34 @@ class ProductoModel {
         $stmt->execute([$termino, $termino]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function actualizar($id, $datos) {
+    $query = "UPDATE producto SET 
+        nomPRODUCTO = ?, 
+        marcaPRODUCTO = ?, 
+        precioPRODUCTO = ?, 
+        unidadMedidaPRODUCTO = ?, 
+        idCATEGORIA = ?, 
+        idPROVEEDOR = ?" . 
+        (isset($datos['fotoPRODUCTO']) ? ", fotoPRODUCTO = ?" : "") . 
+        " WHERE idPRODUCTO = ?";
+
+    $params = [
+        $datos['nomPRODUCTO'],
+        $datos['marcaPRODUCTO'],
+        $datos['precioPRODUCTO'],
+        $datos['unidadMedidaPRODUCTO'],
+        $datos['idCATEGORIA'],
+        $datos['idPROVEEDOR']
+    ];
+
+    if (isset($datos['fotoPRODUCTO'])) {
+        $params[] = $datos['fotoPRODUCTO'];
+    }
+
+    $params[] = $id;
+
+    $stmt = $this->db->prepare($query);
+    return $stmt->execute($params);
+}
+
 }

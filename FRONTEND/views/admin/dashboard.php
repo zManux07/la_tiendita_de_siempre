@@ -115,6 +115,8 @@ $entradaModel = new EntradaModel($conn);
                     <div class="card-body">
                         <a href="index.php?route=admin/producto/crear" class="btn btn-primary btn-sm mb-2">+ Crear Producto</a>
                         <a href="index.php?route=admin/entrada/crear" class="btn btn-info btn-sm mb-2">+ Entrada de Inventario</a>
+                        <a href="index.php?route=admin/producto/editar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Productos</a>
+
                     </div>
                 </div>
             </div>
@@ -127,6 +129,13 @@ $entradaModel = new EntradaModel($conn);
                     <div class="card-body">
                         <a href="index.php?route=admin/categoria/crear" class="btn btn-primary btn-sm mb-2">+ Crear Categoría</a>
                         <a href="index.php?route=admin/proveedor/crear" class="btn btn-primary btn-sm mb-2">+ Crear Proveedor</a>
+                        <a href="index.php?route=admin/categoria/editar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Categorías</a>
+                        <a href="index.php?route=admin/proveedor/editar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Proveedores</a>
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -139,6 +148,12 @@ $entradaModel = new EntradaModel($conn);
                     <div class="card-body">
                         <a href="index.php?route=admin/usuario/crear" class="btn btn-primary btn-sm mb-2">+ Crear Usuario</a>
                         <a href="index.php?route=admin/empleado/crear" class="btn btn-primary btn-sm mb-2">+ Crear Empleado</a>
+                        <a href="index.php?route=admin/usuario/editar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Usuarios</a>
+                        <a href="index.php?route=admin/empleado/editar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Empleados</a>
+
+
+
+
                     </div>
                 </div>
             </div>

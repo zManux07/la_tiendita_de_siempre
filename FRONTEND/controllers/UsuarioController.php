@@ -53,4 +53,24 @@ class UsuarioController {
 
         return 'views/admin/crear_usuario.php';
     }
+    public function editar() {
+    $id = $_GET['id'] ?? null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $datos = [
+            'nomUSUARIO' => $_POST['nomUSUARIO'],
+            'emailUSUARIO' => $_POST['emailUSUARIO'],
+            'rolUSUARIO' => $_POST['rolUSUARIO']
+        ];
+        $this->usuarioModel->actualizar($id, $datos);
+
+        $_SESSION['success'] = "Usuario actualizado";
+        header("Location: index.php?route=admin/dashboard");
+        exit;
+    }
+
+    $usuario = $this->usuarioModel->obtenerPorId($id);
+    return "views/admin/editar_usuario.php";
+}
+
 }
