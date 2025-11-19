@@ -14,7 +14,12 @@ $producto = $productoModel->obtenerPorId($_GET['id']);
     <div class="row">
         <div class="col-md-6">
             <?php if ($producto['fotoPRODUCTO']): ?>
-                <img src="<?= htmlspecialchars($producto['fotoPRODUCTO']) ?>" alt="<?= htmlspecialchars($producto['nomPRODUCTO']) ?>" class="img-fluid rounded">
+                <img src="<?= htmlspecialchars($producto['fotoPRODUCTO']) ?>" 
+     alt="<?= htmlspecialchars($producto['nomPRODUCTO']) ?>" 
+     class="img-detalle-producto rounded">
+
+
+
             <?php else: ?>
                 <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 400px;">
                     <span class="text-muted">Sin imagen disponible</span>

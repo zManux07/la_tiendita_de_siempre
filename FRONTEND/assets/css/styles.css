@@ -347,5 +347,15 @@ footer p {
     background-color: #f8f9fa; 
     padding: 10px;
 }
+.img-detalle-producto {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+
 
 
