@@ -105,6 +105,14 @@ if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
                                 <small class="text-muted">JPG, PNG (máx. 5MB)</small>
                             </div>
 
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="destacado" name="destacado" value="1">
+                                <label class="form-check-label" for="destacado">
+                                Mostrar en la página principal (Destacado)
+                                </label>
+</div>
+
+
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <a href="index.php?route=admin/dashboard" class="btn btn-secondary">Cancelar</a>
                                 <button type="submit" class="btn btn-primary">Crear Producto</button>

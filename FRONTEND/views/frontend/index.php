@@ -18,7 +18,7 @@
         $db = new Database();
         $conn = $db->connect();
         $productoModel = new ProductoModel($conn);
-        $productos = $productoModel->obtenerTodos();
+        $productos = $productoModel->obtenerDestacados();
 
         foreach (array_slice($productos, 0, 6) as $producto):
         ?>

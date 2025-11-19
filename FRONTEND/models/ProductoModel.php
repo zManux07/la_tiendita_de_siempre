@@ -19,6 +19,20 @@ class ProductoModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function obtenerDestacados() {
+    $query = "SELECT p.*, c.nomCATEGORIA, pr.nomPROVEEDOR
+              FROM producto p
+              LEFT JOIN categoria c ON p.idCATEGORIA = c.idCATEGORIA
+              LEFT JOIN proveedor pr ON p.idPROVEEDOR = pr.idPROVEEDOR
+              WHERE p.destacado = 1
+              ORDER BY p.idPRODUCTO DESC";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
     public function obtenerPorId($id) {
         $query = "SELECT p.*, c.nomCATEGORIA, pr.nomPROVEEDOR
                   FROM producto p
