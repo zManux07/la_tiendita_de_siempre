@@ -43,11 +43,11 @@ class AuthController {
         return 'views/frontend/login.php';
     }
 
-public function registro() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        public function registro() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 1. Validación de contraseña ANTES de hashear
-        if ($_POST['pass'] !== $_POST['pass_confirm']) {
+            if ($_POST['pass'] !== $_POST['pass_confirm']) {
             $_SESSION['error'] = 'Las contraseñas no coinciden';
             header('Location: index.php?route=registro');
             exit;
@@ -92,8 +92,6 @@ public function registro() {
 
     return 'views/frontend/registro.php';
 }
-
-
     public function logout() {
         session_destroy();
         header('Location: index.php?route=index');

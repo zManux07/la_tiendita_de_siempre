@@ -25,7 +25,16 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 card-hover">
                     <?php if ($producto['fotoPRODUCTO']): ?>
-                        <img src="<?= htmlspecialchars($producto['fotoPRODUCTO']) ?>" class="card-img-top" alt="<?= htmlspecialchars($producto['nomPRODUCTO']) ?>">
+                        <?php if ($producto['fotoPRODUCTO']): ?>
+    <img src="<?= htmlspecialchars($producto['fotoPRODUCTO']) ?>" 
+         class="card-img-top producto-img" 
+         alt="<?= htmlspecialchars($producto['nomPRODUCTO']) ?>">
+<?php else: ?>
+    <div class="card-img-top bg-light d-flex align-items-center justify-content-center producto-img">
+        <span class="text-muted">Sin imagen</span>
+                </div>
+                <?php endif; ?>
+
                     <?php else: ?>
                         <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                             <span class="text-muted">Sin imagen</span>

@@ -340,3 +340,12 @@ footer p {
 .link-hover:hover {
     color: var(--primary-blue);
 }
+.producto-img {
+    width: 100%;
+    height: 250px;            
+    object-fit: contain;      
+    background-color: #f8f9fa; 
+    padding: 10px;
+}
+
+
