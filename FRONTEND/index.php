@@ -103,8 +103,11 @@ switch ($route) {
             new CategoriaModel($conn),
             new ProveedorModel($conn)
         );
-        $view = $controller->crear();
-        require $view;
+        $data = $controller->crear();
+        $categorias = $data['categorias'];
+        $proveedores = $data['proveedores'];
+        require $data['view'];
+
         break;
 
     case 'admin/categoria/crear':
@@ -146,8 +149,9 @@ switch ($route) {
             new PagoModel($conn),
             new FacturaModel($conn)
         );
-        $view = $controller->crear();
-        require $view;
+        $data = $controller->crear();
+        $facturas = $data['facturas'];
+        require $data['view'];
         break;
 
     case 'admin/mensajes':

@@ -43,6 +43,9 @@ class PagoController {
 
         $facturas = $this->facturaModel->obtenerTodas();
 
-        return 'views/admin/crear_pago.php';
+        return [
+        'view' => 'views/admin/crear_pago.php',
+        'facturas' => $facturas
+        ];
     }
 }

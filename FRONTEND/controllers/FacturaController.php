@@ -43,7 +43,7 @@ class FacturaController {
                         $item['cantidad'],
                         $item['precioPRODUCTO']
                     );
-                    $this->productoModel->actualizarStock($item['idProducto'], $item['cantidad']);
+                    $this->productoModel->actualizarStock($item['idProducto'], -$item['cantidad']);
                 }
 
                 $this->carritoModel->limpiar($_SESSION['usuario_id']);

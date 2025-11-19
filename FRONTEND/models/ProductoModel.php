@@ -65,12 +65,14 @@ class ProductoModel {
     }
 
     public function actualizarStock($idProducto, $cantidad) {
-        $query = "UPDATE producto SET cantidadenstockPRODUCTO = cantidadenstockPRODUCTO - ?
-                  WHERE idPRODUCTO = ?";
+        $query = "UPDATE producto 
+            SET cantidadenstockPRODUCTO = cantidadenstockPRODUCTO + ?
+            WHERE idPRODUCTO = ?";
 
         $stmt = $this->db->prepare($query);
         return $stmt->execute([$cantidad, $idProducto]);
-    }
+}
+
 
     public function buscar($termino) {
         $query = "SELECT p.*, c.nomCATEGORIA

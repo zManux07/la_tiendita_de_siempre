@@ -73,6 +73,9 @@ class ProductoController {
         $categorias = $this->categoriaModel->obtenerTodas();
         $proveedores = $this->proveedorModel->obtenerTodos();
 
-        return 'views/admin/crear_producto.php';
+        return [
+    'view' => 'views/admin/crear_producto.php',
+    'categorias' => $categorias,
+    'proveedores' => $proveedores ];
     }
 }

@@ -36,7 +36,7 @@ class EntradaController {
             }
 
             if ($this->entradaModel->crear($datos)) {
-                $this->productoModel->actualizarStock($datos['idPRODUCTO'], -$datos['cantIngreENTRADA']);
+                $this->productoModel->actualizarStock($datos['idPRODUCTO'], $datos['cantIngreENTRADA']);
                 $_SESSION['success'] = 'Entrada registrada exitosamente';
             } else {
                 $_SESSION['error'] = 'Error al registrar la entrada';
@@ -48,6 +48,7 @@ class EntradaController {
 
         $productos = $this->productoModel->obtenerTodos();
 
-        return 'views/admin/crear_entrada.php';
+            include 'views/admin/crear_entrada.php';
+            exit;
     }
 }

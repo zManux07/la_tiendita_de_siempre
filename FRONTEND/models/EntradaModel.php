@@ -61,7 +61,7 @@ class EntradaModel {
                   JOIN producto p ON e.idPRODUCTO = p.idPRODUCTO
                   JOIN usuario u ON e.idUSUARIO = u.idUSUARIO
                   ORDER BY e.fechaIngreENTRADA DESC
-                  LIMIT ?";
+                  LIMIT $limit";
 
         $stmt = $this->db->prepare($query);
         $stmt->execute([$limit]);
