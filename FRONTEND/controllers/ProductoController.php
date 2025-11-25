@@ -118,6 +118,18 @@ class ProductoController {
     $proveedores = $this->proveedorModel->obtenerTodos();
 
     return 'views/admin/editar_producto.php';
+    
+}
+
+public function listar() {
+    $productos = $this->productoModel->obtenerTodos();
+    return 'views/admin/listar_producto.php';
+}
+
+public function eliminar() {
+    $id = $_GET['id'];
+    $this->productoModel->eliminar($id);
+    header("Location: index.php?route=admin/producto/listar");
 }
 
 }

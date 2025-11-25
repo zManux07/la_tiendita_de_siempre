@@ -43,24 +43,57 @@ class EmpleadoController {
 
         return 'views/admin/crear_empleado.php';
     }
-    public function editar() {
+public function editar() {
     $id = $_GET['id'] ?? null;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $datos = [
-            'nombreEMP' => $_POST['nombreEMP'],
-            'cargoEMP' => $_POST['cargoEMP'],
-            'salarioEMP' => $_POST['salarioEMP']
-        ];
-        $this->empleadoModel->actualizar($id, $datos);
-
-        $_SESSION['success'] = "Empleado actualizado";
-        header("Location: index.php?route=admin/dashboard");
+    if (!$id) { 
+        header("Location: index.php?route=admin/empleado/listar");
         exit;
     }
 
+    // SI VIENE POST → ACTUALIZAR
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $datos = [
+            'nombre' => $_POST['nombre'],
+            'cargo' => $_POST['cargo'],
+            'correo' => $_POST['correo'],
+            'telefono' => $_POST['telefono'],
+            'fecha_ingreso' => $_POST['fecha_ingreso']
+        ];
+
+        $this->empleadoModel->actualizar($id, $datos);
+
+        $_SESSION['success'] = "Empleado actualizado";
+        header("Location: index.php?route=admin/empleado/listar");
+        exit;
+    }
+
+    // SI NO VIENE POST → MOSTRAR FORMULARIO
     $empleado = $this->empleadoModel->obtenerPorId($id);
+
+    if (!$empleado) {
+        $_SESSION['error'] = "Empleado no encontrado";
+        header("Location: index.php?route=admin/empleado/listar");
+        exit;
+    }
+
+    $_SESSION['empleado_edit'] = $empleado;
+
     return "views/admin/editar_empleado.php";
 }
+
+
+public function listar() {
+    $empleados = $this->empleadoModel->obtenerTodos();
+    return 'views/admin/listar_empleado.php';
+}
+
+public function eliminar() {
+    $id = $_GET['id'];
+    $this->empleadoModel->eliminar($id);
+    header("Location: index.php?route=admin/empleado/listar");
+}
+
 
 }

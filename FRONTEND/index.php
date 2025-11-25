@@ -172,6 +172,19 @@ case 'admin/categoria/editar':
     require $view;
     break;
 
+    case 'admin/categoria/listar':
+    $controller = new CategoriaController(new CategoriaModel($conn));
+    $view = $controller->listar();
+    require $view;
+    break;
+
+    case 'admin/categoria/eliminar':
+    $controller = new CategoriaController(new CategoriaModel($conn));
+    $controller->eliminar();
+    break;
+
+
+
 // PROVEEDOR EDITAR
 case 'admin/proveedor/editar':
     $controller = new ProveedorController(new ProveedorModel($conn));
@@ -192,6 +205,7 @@ case 'admin/empleado/editar':
     $view = $controller->editar();
     require $view;
     break;
+
 
 
     case 'admin/mensajes':
@@ -240,6 +254,27 @@ case 'admin/empleado/editar':
         $controller = new MensajeController(new MensajeModel($conn));
         $controller->enviar();
         break;
+
+
+case 'admin/producto/listar':
+    require 'views/admin/listar_productos.php';
+    break;
+
+
+case 'admin/proveedor/listar':
+    require 'views/admin/listar_proovedores.php';
+    break;
+
+
+case 'admin/usuario/listar':
+    require 'views/admin/listar_usuarios.php';
+    break;
+
+
+case 'admin/empleado/listar':
+    require 'views/admin/listar_empleados.php';
+    break;
+
 
     default:
         header('Location: index.php?route=index');

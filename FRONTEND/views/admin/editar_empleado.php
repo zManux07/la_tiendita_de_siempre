@@ -1,6 +1,4 @@
-<?php include 'header.php'; ?>
-
-<?php
+<?php 
 require_once 'config/Database.php';
 require_once 'models/EmpleadoModel.php';
 
@@ -10,7 +8,38 @@ $empleadoModel = new EmpleadoModel($conn);
 
 $empleado = $empleadoModel->obtenerPorId($_GET['id']);
 ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Categoría</title>
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tus estilos -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark-blue">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.php?route=admin/dashboard">🏢 Dashboard Admin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?route=admin/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?route=logout">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container my-5">
     <h2 class="mb-4">✏️ Editar Empleado</h2>
 
@@ -47,4 +76,8 @@ $empleado = $empleadoModel->obtenerPorId($_GET['id']);
     </form>
 </div>
 
-<?php include 'footer.php'; ?>
+<!-- FOOTER + BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

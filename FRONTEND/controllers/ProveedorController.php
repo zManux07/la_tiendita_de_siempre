@@ -55,5 +55,16 @@ class ProveedorController {
     $proveedor = $this->proveedorModel->obtenerPorId($id);
     return "views/admin/editar_proveedor.php";
 }
+public function listar() {
+    $proveedores = $this->proveedorModel->obtenerTodos();
+    return 'views/admin/listar_proveedor.php';
+}
+
+public function eliminar() {
+    $id = $_GET['id'];
+    $this->proveedorModel->eliminar($id);
+    header("Location: index.php?route=admin/proveedor/listar");
+}
+
 
 }

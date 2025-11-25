@@ -72,5 +72,15 @@ class UsuarioController {
     $usuario = $this->usuarioModel->obtenerPorId($id);
     return "views/admin/editar_usuario.php";
 }
+public function listar() {
+    $usuarios = $this->usuarioModel->obtenerTodos();
+    return 'views/admin/listar_usuario.php';
+}
+
+public function eliminar() {
+    $id = $_GET['id'];
+    $this->usuarioModel->eliminar($id);
+    header("Location: index.php?route=admin/usuario/listar");
+}
 
 }
