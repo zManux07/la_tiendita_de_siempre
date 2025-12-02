@@ -14,12 +14,12 @@ class EmpleadoModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function obtenerPorId($id) {
-        $query = "SELECT * FROM empleados WHERE id_empleado = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+ public function obtenerPorId($id) {
+    $stmt = $this->db->prepare("SELECT * FROM empleados WHERE id_empleado = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
     public function crear($datos) {
         $query = "INSERT INTO empleados
@@ -36,26 +36,28 @@ class EmpleadoModel {
         ]);
     }
 
-    public function actualizar($id, $datos) {
-        $query = "UPDATE empleados SET
-                    nombre = ?,
-                    cargo = ?,
-                    correo = ?,
-                    telefono = ?,
-                    fecha_ingreso = ?
-                  WHERE id_empleado = ?";
+   public function actualizar($id, $datos) {
+    $sql = "UPDATE empleados SET 
+                nombre = ?, 
+                cargo = ?, 
+                correo = ?, 
+                telefono = ?, 
+                fecha_ingreso = ?
+            WHERE id_empleado = ?";
 
-        $stmt = $this->db->prepare($query);
+    $stmt = $this->db->prepare($sql);
 
-        return $stmt->execute([
-            $datos['nombre'],
-            $datos['cargo'],
-            $datos['correo'],
-            $datos['telefono'],
-            $datos['fecha_ingreso'],
-            $id
-        ]);
-    }
+    return $stmt->execute([
+        $datos['nombre'] ?? '',
+        $datos['cargo'] ?? '',
+        $datos['correo'] ?? '',
+        $datos['telefono'] ?? '',
+        $datos['fecha_ingreso'] ?? null,
+        $id
+    ]);
+}
+
+
 
     public function eliminar($id) {
         $stmt = $this->db->prepare("DELETE FROM empleados WHERE id_empleado = ?");

@@ -165,6 +165,16 @@ case 'admin/producto/editar':
     require $view;
     break;
 
+    case 'admin/producto/eliminar':
+    $controller = new ProductoController(
+        new ProductoModel($conn),
+        new CategoriaModel($conn),
+        new ProveedorModel($conn)
+    );
+    $controller->eliminar();
+    break;
+
+
 // CATEGORIA EDITAR
 case 'admin/categoria/editar':
     $controller = new CategoriaController(new CategoriaModel($conn));
@@ -183,6 +193,8 @@ case 'admin/categoria/editar':
     $controller->eliminar();
     break;
 
+    
+
 
 
 // PROVEEDOR EDITAR
@@ -192,6 +204,13 @@ case 'admin/proveedor/editar':
     require $view;
     break;
 
+    case 'admin/proveedor/eliminar':
+    $controller = new ProveedorController(new ProveedorModel($conn));
+    $controller->eliminar();
+    break;
+
+
+
 // USUARIO EDITAR
 case 'admin/usuario/editar':
     $controller = new UsuarioController(new UsuarioModel($conn));
@@ -199,12 +218,24 @@ case 'admin/usuario/editar':
     require $view;
     break;
 
+// USUARIO ELIMINAR
+case 'admin/usuario/eliminar':
+    $controller = new UsuarioController(new UsuarioModel($conn));
+    $controller->eliminar();
+    break;
+
+
 // EMPLEADO EDITAR
 case 'admin/empleado/editar':
     $controller = new EmpleadoController(new EmpleadoModel($conn));
     $view = $controller->editar();
     require $view;
     break;
+    case 'admin/empleado/eliminar':
+    $controller = new EmpleadoController(new EmpleadoModel($conn));
+    $controller->eliminar();
+    break;
+
 
 
 

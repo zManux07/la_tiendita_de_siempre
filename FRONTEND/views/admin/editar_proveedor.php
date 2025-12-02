@@ -43,8 +43,9 @@ $proveedor = $proveedorModel->obtenerPorId($_GET['id']);
 <div class="container my-5">
     <h2 class="mb-4">✏️ Editar Proveedor</h2>
 
-    <form action="index.php?route=admin/proveedor/actualizar" method="POST" class="card p-4 shadow-sm">
-        <input type="hidden" name="idPROVEEDOR" value="<?= $proveedor['idPROVEEDOR'] ?>">
+    <form action="index.php?route=admin/proveedor/editar&id=<?= $proveedor['idPROVEEDOR'] ?>" method="POST" class="card p-4 shadow-sm">
+       <input type="hidden" name="idPROVEEDOR" value="<?= $proveedor['idPROVEEDOR'] ?>">
+
 
         <div class="mb-3">
             <label class="form-label">Nombre</label>

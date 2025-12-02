@@ -74,26 +74,47 @@ class UsuarioModel {
         return $this->db->query("SELECT COUNT(*) FROM usuario")->fetchColumn();
     }
 
-    // Actualizar
-    public function actualizar($id, $datos) {
-        $query = "UPDATE usuario SET 
-                    nomUSUARIO = ?, 
-                    emailUSUARIO = ?, 
-                    rolUSUARIO = ?
-                  WHERE idUSUARIO = ?";
+public function actualizar($id, $datos) {
 
-        $stmt = $this->db->prepare($query);
-        return $stmt->execute([
-            $datos['nomUSUARIO'],
-            $datos['emailUSUARIO'],
-            $datos['rolUSUARIO'],
-            $id
-        ]);
+    // Construcción dinámica del SQL
+    $query = "UPDATE usuario SET 
+                numdocUSUARIO = ?, 
+                tipodocumenUSUARIO = ?, 
+                nomUSUARIO = ?, 
+                direcUSUARIO = ?, 
+                telUSUARIO = ?, 
+                emailUSUARIO = ?, 
+                rolUSUARIO = ?, 
+                cargoUSUARIO = ?";
+
+    $params = [
+        $datos['numdocUSUARIO'],
+        $datos['tipodocumenUSUARIO'],
+        $datos['nomUSUARIO'],
+        $datos['direcUSUARIO'],
+        $datos['telUSUARIO'],
+        $datos['emailUSUARIO'],
+        $datos['rolUSUARIO'],
+        $datos['cargoUSUARIO']
+    ];
+
+    // Si envió nueva contraseña, agregarla
+    if (!empty($datos['pass'])) {
+        $query .= ", pass = ?";
+        $params[] = password_hash($datos['pass'], PASSWORD_DEFAULT);
     }
 
-    // Eliminar
-    public function eliminar($id) {
-        $stmt = $this->db->prepare("DELETE FROM usuario WHERE idUSUARIO = ?");
-        return $stmt->execute([$id]);
-    }
+    $query .= " WHERE idUSUARIO = ?";
+    $params[] = $id;
+
+    $stmt = $this->db->prepare($query);
+    return $stmt->execute($params);
+}
+
+
+  public function eliminar($id) {
+    $stmt = $this->db->prepare("DELETE FROM usuario WHERE idUSUARIO = ?");
+    return $stmt->execute([$id]);
+}
+
 }

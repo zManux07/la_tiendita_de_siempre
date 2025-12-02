@@ -43,7 +43,7 @@ $usuario = $usuarioModel->obtenerPorId($_GET['id']);
 <div class="container my-5">
     <h2 class="mb-4">✏️ Editar Usuario</h2>
 
-    <form action="index.php?route=admin/usuario/actualizar" method="POST" class="card p-4 shadow-sm">
+    <form action="index.php?route=admin/empleado/editar&id=<?= $empleado['id_empleado'] ?>" method="POST" class="card p-4 shadow-sm">
         <input type="hidden" name="idUSUARIO" value="<?= $usuario['idUSUARIO'] ?>">
 
         <div class="mb-3">
@@ -63,6 +63,26 @@ $usuario = $usuarioModel->obtenerPorId($_GET['id']);
                 <option value="cliente" <?= $usuario['rolUSUARIO'] == 'cliente' ? 'selected' : '' ?>>Cliente</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label class ="form-label">Contraseña (dejar en blanco para no cambiar)</label>
+            <input type="password" name="pass" class="form-control">
+        </div>
+        <div><label for="tipodoc" class="form-label">Tipo de Documento</label>
+                                    <select class="form-select" id="tipodoc" name="tipodocumenUSUARIO" required>
+                                        <option value="CC">Cédula</option>
+                                        <option value="TI">Tarjeta de Identidad</option>
+                                        <option value="PAS">Pasaporte</option>
+                                    </select>
+                                    </div>
+<div class="mb-3">
+    <label class="form-label">Número de Documento</label>
+    <input type="text" name="numdocUSUARIO" class="form-control" 
+           value="<?= $usuario['numdocUSUARIO'] ?>" required>
+</div>
+
+
+
+
 
         <button class="btn btn-primary">Guardar Cambios</button>
         <a href="index.php?route=admin/dashboard" class="btn btn-secondary">Cancelar</a>

@@ -57,7 +57,8 @@ $categoria = $categoriaModel->obtenerPorId($_GET['id']);
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="index.php?route=admin/categoria/actualizar" method="POST">
+                    <form action="index.php?route=admin/categoria/editar&id=<?= $categoria['idCATEGORIA'] ?>" method="POST">
+
                         <input type="hidden" name="idCATEGORIA" value="<?= $categoria['idCATEGORIA'] ?>">
 
                         <div class="mb-3">

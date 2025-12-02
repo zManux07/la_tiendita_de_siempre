@@ -100,7 +100,7 @@ class ProductoModel {
         $stmt->execute([$termino, $termino]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function actualizar($id, $datos) {
+    public function actualizar($idProducto, $datos) {
     $query = "UPDATE producto SET 
         nomPRODUCTO = ?, 
         marcaPRODUCTO = ?, 
@@ -124,10 +124,16 @@ class ProductoModel {
         $params[] = $datos['fotoPRODUCTO'];
     }
 
-    $params[] = $id;
+    $params[] = $idProducto;
 
     $stmt = $this->db->prepare($query);
     return $stmt->execute($params);
+}
+
+public function eliminar($id)
+{
+    $stmt = $this->db->prepare("DELETE FROM producto WHERE idPRODUCTO = ?");
+    return $stmt->execute([$id]);
 }
 
 }

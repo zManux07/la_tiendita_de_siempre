@@ -50,6 +50,7 @@ $empleados = $empleadoModel->obtenerTodos();
                 <th>Nombre</th>
                 <th>Teléfono</th>
                 <th>Cargo</th>
+                <th>Email</th>
                 <th style="width: 150px;">Acciones</th>
             </tr>
         </thead>
@@ -61,7 +62,8 @@ $empleados = $empleadoModel->obtenerTodos();
                 <td><?= $e['nombre'] ?></td>
                 <td><?= $e['telefono'] ?></td>
                 <td><?= $e['cargo'] ?></td>
-
+                <td><?= $e['correo'] ?></td>
+                
 <td>
     <a href="index.php?route=admin/empleado/editar&id=<?= $e['id_empleado']; ?>" 
        class="btn btn-sm btn-warning">Editar</a>

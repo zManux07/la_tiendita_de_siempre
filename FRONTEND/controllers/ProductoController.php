@@ -78,18 +78,18 @@ class ProductoController {
     'categorias' => $categorias,
     'proveedores' => $proveedores ];
     }
-    public function editar() {
-    $id = $_GET['id'] ?? null;
-    if (!$id) {
-        header('Location: index.php?route=admin/dashboard');
-        exit;
-    }
+public function editar() {
 
+    // 1. Si viene por POST: ACTUALIZAR
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $id = $_POST['idPRODUCTO'];  // el hidden del form
+
         $datos = [
             'nomPRODUCTO' => $_POST['nomPRODUCTO'] ?? '',
             'marcaPRODUCTO' => $_POST['marcaPRODUCTO'] ?? '',
             'precioPRODUCTO' => $_POST['precioPRODUCTO'] ?? 0,
+            'cantidadenstockPRODUCTO' => $_POST['cantidadenstockPRODUCTO'] ?? 0,
             'unidadMedidaPRODUCTO' => $_POST['unidadMedidaPRODUCTO'] ?? '',
             'idCATEGORIA' => $_POST['idCATEGORIA'] ?? null,
             'idPROVEEDOR' => $_POST['idPROVEEDOR'] ?? null
@@ -97,29 +97,44 @@ class ProductoController {
 
         // SI SUBE NUEVA IMAGEN
         if (!empty($_FILES['fotoPRODUCTO']['name'])) {
-            $archivo = $_FILES['fotoPRODUCTO'];
-            $nombre = uniqid() . '_' . basename($archivo['name']);
-            $ruta = 'assets/img/' . $nombre;
 
-            if (move_uploaded_file($archivo['tmp_name'], $ruta)) {
-                $datos['fotoPRODUCTO'] = $ruta;
+            $archivo = $_FILES['fotoPRODUCTO'];
+            $permitidos = ['image/jpeg', 'image/png', 'image/jpg'];
+
+            if (in_array($archivo['type'], $permitidos)) {
+                $nombre = uniqid() . '_' . basename($archivo['name']);
+                $ruta = 'assets/img/' . $nombre;
+
+                if (move_uploaded_file($archivo['tmp_name'], $ruta)) {
+                    $datos['fotoPRODUCTO'] = $ruta;
+                }
             }
         }
 
         $this->productoModel->actualizar($id, $datos);
-        $_SESSION['success'] = 'Producto actualizado';
+        $_SESSION['success'] = 'Producto actualizado correctamente';
 
-        header('Location: index.php?route=admin/dashboard');
+        header('Location: index.php?route=admin/producto/listar');
         exit;
     }
 
+    // 2. Si viene por GET: cargar datos
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        header('Location: index.php?route=admin/producto/listar');
+        exit;
+    }
+
+    // VARIABLES DISPONIBLES PARA LA VISTA
     $producto = $this->productoModel->obtenerPorId($id);
     $categorias = $this->categoriaModel->obtenerTodas();
     $proveedores = $this->proveedorModel->obtenerTodos();
 
+    // 3. SOLO DEVUELVE LA RUTA DE LA VISTA
     return 'views/admin/editar_producto.php';
-    
 }
+
 
 public function listar() {
     $productos = $this->productoModel->obtenerTodos();

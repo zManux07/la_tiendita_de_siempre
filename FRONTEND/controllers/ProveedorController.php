@@ -43,18 +43,44 @@ class ProveedorController {
         return 'views/admin/crear_proveedor.php';
     }
     public function editar() {
+
+    // Si viene por POST -> guardar cambios
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $id = $_GET['id'] ?? $_POST['idPROVEEDOR'] ?? null;
+
+        if (!$id) {
+            $_SESSION['error'] = "No se recibió el ID del proveedor";
+            header("Location: index.php?route=admin/proveedor/listar");
+            exit;
+        }
+
+        $datos = [
+            'nomPROVEEDOR' => $_POST['nomPROVEEDOR'],
+            'telPROVEEDOR' => $_POST['telPROVEEDOR'],
+            'direcPROVEEDOR' => $_POST['direcPROVEEDOR']
+        ];
+
+        $this->proveedorModel->actualizar($id, $datos);
+
+        $_SESSION['success'] = "Proveedor actualizado correctamente";
+        header("Location: index.php?route=admin/proveedor/listar");
+        exit;
+    }
+
+    // Si viene por GET -> mostrar formulario
     $id = $_GET['id'] ?? null;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $this->proveedorModel->actualizar($id, $_POST['nomPROVEEDOR']);
-        $_SESSION['success'] = "Proveedor actualizado";
-        header("Location: index.php?route=admin/dashboard");
+    if (!$id) {
+        header("Location: index.php?route=admin/proveedor/listar");
         exit;
     }
 
     $proveedor = $this->proveedorModel->obtenerPorId($id);
+
     return "views/admin/editar_proveedor.php";
 }
+
 public function listar() {
     $proveedores = $this->proveedorModel->obtenerTodos();
     return 'views/admin/listar_proveedor.php';

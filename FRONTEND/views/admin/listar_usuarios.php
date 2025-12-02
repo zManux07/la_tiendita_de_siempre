@@ -50,6 +50,7 @@ $usuarios = $usuarioModel->obtenerTodos();
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Documento</th>
                 <th style="width: 150px;">Acciones</th>
             </tr>
         </thead>
@@ -61,6 +62,7 @@ $usuarios = $usuarioModel->obtenerTodos();
                 <td><?= $u['nomUSUARIO'] ?></td>
                 <td><?= $u['emailUSUARIO'] ?></td>
                 <td><?= $u['rolUSUARIO'] ?></td>
+                <td><?= $u['tipodocumenUSUARIO'] . ' ' . $u['numdocUSUARIO'] ?></td>
 
                 <td>
                     <a href="index.php?route=admin/usuario/editar&id=<?= $u['idUSUARIO'] ?>" class="btn btn-sm btn-warning">Editar</a>

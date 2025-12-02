@@ -44,44 +44,45 @@ class EmpleadoController {
         return 'views/admin/crear_empleado.php';
     }
 public function editar() {
-    $id = $_GET['id'] ?? null;
 
-    if (!$id) { 
-        header("Location: index.php?route=admin/empleado/listar");
-        exit;
-    }
-
-    // SI VIENE POST → ACTUALIZAR
+    // Cuando se envía el formulario (POST)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        $id = $_POST['id_empleado'] ?? null;
+        if (!$id) {
+            $_SESSION['error'] = "No llegó el ID del empleado";
+            header("Location: index.php?route=admin/empleado/listar");
+            exit;
+        }
+
         $datos = [
-            'nombre' => $_POST['nombre'],
-            'cargo' => $_POST['cargo'],
-            'correo' => $_POST['correo'],
-            'telefono' => $_POST['telefono'],
-            'fecha_ingreso' => $_POST['fecha_ingreso']
+            'nombre' => $_POST['nombre'] ?? '',
+            'cargo' => $_POST['cargo'] ?? '',
+            'correo' => $_POST['correo'] ?? '',
+            'telefono' => $_POST['telefono'] ?? '',
+            'fecha_ingreso' => $_POST['fecha_ingreso'] ?? null
         ];
 
         $this->empleadoModel->actualizar($id, $datos);
 
-        $_SESSION['success'] = "Empleado actualizado";
+        $_SESSION['success'] = "Empleado actualizado correctamente";
         header("Location: index.php?route=admin/empleado/listar");
         exit;
     }
 
-    // SI NO VIENE POST → MOSTRAR FORMULARIO
+    // Mostrar formulario (GET)
+    $id = $_GET['id'] ?? null;
+    if (!$id) {
+        header("Location: index.php?route=admin/empleado/listar");
+        exit;
+    }
+
     $empleado = $this->empleadoModel->obtenerPorId($id);
 
-    if (!$empleado) {
-        $_SESSION['error'] = "Empleado no encontrado";
-        header("Location: index.php?route=admin/empleado/listar");
-        exit;
-    }
-
-    $_SESSION['empleado_edit'] = $empleado;
-
-    return "views/admin/editar_empleado.php";
+    return 'views/admin/editar_empleado.php';
 }
+
+
 
 
 public function listar() {

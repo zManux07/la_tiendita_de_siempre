@@ -50,7 +50,8 @@ $proveedores = $proveedorModel->obtenerTodos();
 <div class="container my-5">
     <h2 class="mb-4">✏️ Editar Producto</h2>
 
-    <form action="index.php?route=admin/producto/actualizar" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
+    <form action="index.php?route=admin/producto/editar" method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
+
         <input type="hidden" name="idPRODUCTO" value="<?= $producto['idPRODUCTO'] ?>">
 
         <div class="mb-3">
@@ -103,8 +104,10 @@ $proveedores = $proveedorModel->obtenerTodos();
 
         <button class="btn btn-primary">Guardar Cambios</button>
         <a href="index.php?route=admin/dashboard" class="btn btn-secondary">Cancelar</a>
+
     </form>
 </div>
+
 
 <!-- FOOTER + BOOTSTRAP JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

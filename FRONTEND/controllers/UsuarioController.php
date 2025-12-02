@@ -53,25 +53,42 @@ class UsuarioController {
 
         return 'views/admin/crear_usuario.php';
     }
-    public function editar() {
-    $id = $_GET['id'] ?? null;
-
+public function editar()
+{
+    // Si se envió el formulario (POST)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $id = $_POST['idUSUARIO'];  // ← EL ID VIENE DESDE EL FORMULARIO
+
         $datos = [
+            'numdocUSUARIO' => $_POST['numdocUSUARIO'],
+            'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'],
             'nomUSUARIO' => $_POST['nomUSUARIO'],
+            'direcUSUARIO' => $_POST['direcUSUARIO'],
+            'telUSUARIO' => $_POST['telUSUARIO'],
             'emailUSUARIO' => $_POST['emailUSUARIO'],
-            'rolUSUARIO' => $_POST['rolUSUARIO']
+            'cargoUSUARIO' => $_POST['cargoUSUARIO'],
+            'rolUSUARIO' => $_POST['rolUSUARIO'],
+            'pass' => $_POST['pass'] ?? null
         ];
+
+        // Actualiza
         $this->usuarioModel->actualizar($id, $datos);
 
-        $_SESSION['success'] = "Usuario actualizado";
+        $_SESSION['success'] = "Usuario actualizado correctamente";
         header("Location: index.php?route=admin/dashboard");
         exit;
     }
 
+    // Si es GET → cargar el formulario
+    $id = $_GET['idUSUARIO'] ?? null;
     $usuario = $this->usuarioModel->obtenerPorId($id);
-    return "views/admin/editar_usuario.php";
+
+    require_once "views/admin/editar_usuario.php";
 }
+
+
+
 public function listar() {
     $usuarios = $this->usuarioModel->obtenerTodos();
     return 'views/admin/listar_usuario.php';

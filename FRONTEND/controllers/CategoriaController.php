@@ -41,21 +41,48 @@ class CategoriaController {
         return 'views/admin/crear_categoria.php';
     }
 public function editar() {
-    $id = $_GET['id'] ?? null;
 
-    if (!$id) { 
-        header("Location: index.php?route=admin/dashboard");
+    // 1) Si viene por POST -> procesar la actualización
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        // ID viene por la URL (GET) en la acción del form o como hidden en POST
+        $id = $_GET['id'] ?? $_POST['idCATEGORIA'] ?? null;
+
+        if (!$id) {
+            $_SESSION['error'] = "No se recibió el ID de la categoría";
+            header("Location: index.php?route=admin/categoria/listar");
+            exit;
+        }
+
+        // Leer los campos que vienen del formulario
+        $datos = [
+            'nomCATEGORIA' => $_POST['nomCATEGORIA'] ?? '',
+            'descripcionCATEGORIA' => $_POST['descripcionCATEGORIA'] ?? ''
+        ];
+
+        // Actualiza en la BD
+        $this->categoriaModel->actualizar($id, $datos);
+
+        // Mensaje y redirección a la lista
+        $_SESSION['success'] = "Categoría actualizada correctamente";
+        header("Location: index.php?route=admin/categoria/listar");
         exit;
     }
 
-    // Obtener la categoría a editar
+    // 2) Si viene por GET -> mostrar el formulario con datos
+    $id = $_GET['id'] ?? null;
+    if (!$id) {
+        header("Location: index.php?route=admin/categoria/listar");
+        exit;
+    }
+
+    // obtener la categoría y cargar la vista
     $categoria = $this->categoriaModel->obtenerPorId($id);
-
-    // Guardarlo temporalmente para la vista
-    $_SESSION['categoria_edit'] = $categoria;
-
-    return "views/admin/editar_categoria.php";
+    // (opcional) evita usar SESSION para pasar datos; la vista puede leer $categoria directamente
+    // si tu index.php/dispatcher espera que el controlador retorne la ruta:
+    return 'views/admin/editar_categoria.php';
 }
+
 
 
 public function listar() {
@@ -70,12 +97,12 @@ public function eliminar() {
     header("Location: index.php?route=admin/listar_categoria.php");
 }
 public function actualizar() {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
         header("Location: index.php?route=admin/dashboard");
         exit;
     }
-
-    $id = $_POST['idCATEGORIA'];
 
     $datos = [
         'nomCATEGORIA' => $_POST['nomCATEGORIA'],
@@ -84,10 +111,11 @@ public function actualizar() {
 
     $this->categoriaModel->actualizar($id, $datos);
 
-    $_SESSION['success'] = "Categoría actualizada correctamente";
-    header("Location: index.php?route=admin/dashboard");
+    header("Location: index.php?route=admin/categoria/listar");
     exit;
 }
+
+
 
 
 }

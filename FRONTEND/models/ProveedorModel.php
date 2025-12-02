@@ -36,22 +36,18 @@ class ProveedorModel {
     }
 
     public function actualizar($id, $datos) {
-        $query = "UPDATE proveedor SET
-                    nomPROVEEDOR = ?,
-                    telPROVEEDOR = ?,
-                    direcPROVEEDOR = ?,
-                    emailPROVEEDOR = ?
-                  WHERE idPROVEEDOR = ?";
+    $query = "UPDATE proveedor 
+              SET nomPROVEEDOR = ?, telPROVEEDOR = ?, direcPROVEEDOR = ?
+              WHERE idPROVEEDOR = ?";
 
-        $stmt = $this->db->prepare($query);
-        return $stmt->execute([
-            $datos['nomPROVEEDOR'],
-            $datos['telPROVEEDOR'],
-            $datos['direcPROVEEDOR'],
-            $datos['emailPROVEEDOR'],
-            $id
-        ]);
-    }
+    $stmt = $this->db->prepare($query);
+    return $stmt->execute([
+        $datos['nomPROVEEDOR'],
+        $datos['telPROVEEDOR'],
+        $datos['direcPROVEEDOR'],
+        $id
+    ]);
+}
 
     public function eliminar($id) {
         $stmt = $this->db->prepare("DELETE FROM proveedor WHERE idPROVEEDOR = ?");

@@ -43,7 +43,7 @@ $empleado = $empleadoModel->obtenerPorId($_GET['id']);
 <div class="container my-5">
     <h2 class="mb-4">✏️ Editar Empleado</h2>
 
-    <form action="index.php?route=admin/empleado/actualizar" method="POST" class="card p-4 shadow-sm">
+    <form action="index.php?route=admin/empleado/editar" method="POST" class="card p-4 shadow-sm">
         <input type="hidden" name="id_empleado" value="<?= $empleado['id_empleado'] ?>">
 
         <div class="mb-3">
