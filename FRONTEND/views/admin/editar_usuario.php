@@ -43,7 +43,7 @@ $usuario = $usuarioModel->obtenerPorId($_GET['id']);
 <div class="container my-5">
     <h2 class="mb-4">✏️ Editar Usuario</h2>
 
-    <form action="index.php?route=admin/empleado/editar&id=<?= $empleado['id_empleado'] ?>" method="POST" class="card p-4 shadow-sm">
+    <form action="index.php?route=admin/usuario/editar&idUSUARIO=<?= $usuario['idUSUARIO'] ?>" method="POST" class="card p-4 shadow-sm">
         <input type="hidden" name="idUSUARIO" value="<?= $usuario['idUSUARIO'] ?>">
 
         <div class="mb-3">

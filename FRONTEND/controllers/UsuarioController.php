@@ -58,21 +58,21 @@ public function editar()
     // Si se envió el formulario (POST)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $id = $_POST['idUSUARIO'];  // ← EL ID VIENE DESDE EL FORMULARIO
+        $id = $_POST['idUSUARIO'];  // ID viene desde el formulario
 
         $datos = [
-            'numdocUSUARIO' => $_POST['numdocUSUARIO'],
+            'numdocUSUARIO'      => $_POST['numdocUSUARIO'],
             'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'],
-            'nomUSUARIO' => $_POST['nomUSUARIO'],
-            'direcUSUARIO' => $_POST['direcUSUARIO'],
-            'telUSUARIO' => $_POST['telUSUARIO'],
-            'emailUSUARIO' => $_POST['emailUSUARIO'],
-            'cargoUSUARIO' => $_POST['cargoUSUARIO'],
-            'rolUSUARIO' => $_POST['rolUSUARIO'],
-            'pass' => $_POST['pass'] ?? null
+            'nomUSUARIO'         => $_POST['nomUSUARIO'],
+            'direcUSUARIO'       => $_POST['direcUSUARIO'],
+            'telUSUARIO'         => $_POST['telUSUARIO'],
+            'emailUSUARIO'       => $_POST['emailUSUARIO'],
+            'cargoUSUARIO'       => $_POST['cargoUSUARIO'],
+            'rolUSUARIO'         => $_POST['rolUSUARIO'],
+            'pass'               => $_POST['pass'] ?? null
         ];
 
-        // Actualiza
+        // Actualiza el usuario
         $this->usuarioModel->actualizar($id, $datos);
 
         $_SESSION['success'] = "Usuario actualizado correctamente";
@@ -80,12 +80,17 @@ public function editar()
         exit;
     }
 
-    // Si es GET → cargar el formulario
+    // SI ES GET → cargar datos del usuario
     $id = $_GET['idUSUARIO'] ?? null;
     $usuario = $this->usuarioModel->obtenerPorId($id);
 
-    require_once "views/admin/editar_usuario.php";
+    // Hacer accesible la variable a la vista
+    $GLOBALS['usuario'] = $usuario;
+
+    // DEVOLVER la ruta de la vista (no hacer require aquí)
+    return "views/admin/editar_usuario.php";
 }
+
 
 
 
