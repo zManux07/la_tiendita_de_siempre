@@ -53,6 +53,7 @@ $productos = $productoModel->obtenerTodos(); // Usa tu método correspondiente
                 <th>Stock</th>
                 <th>Categoría</th>
                 <th>Proveedor</th>
+
                 <th style="width: 150px;">Acciones</th>
             </tr>
         </thead>
@@ -66,6 +67,7 @@ $productos = $productoModel->obtenerTodos(); // Usa tu método correspondiente
                 <td><?= $p['cantidadenstockPRODUCTO'] ?></td>
                 <td><?= $p['idCATEGORIA'] ?></td>
                 <td><?= $p['idPROVEEDOR'] ?></td>
+
 
                 <td>
                     <a href="index.php?route=admin/producto/editar&id=<?= $p['idPRODUCTO'] ?>" class="btn btn-sm btn-warning">Editar</a>
