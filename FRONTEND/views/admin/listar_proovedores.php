@@ -63,9 +63,11 @@ $proveedores = $proveedorModel->obtenerTodos();
                 <td><?= $prov['emailPROVEEDOR'] ?></td>
 
                 <td>
+                    <div class="btn-group">
                     <a href="index.php?route=admin/proveedor/editar&id=<?= $prov['idPROVEEDOR'] ?>" class="btn btn-sm btn-warning">Editar</a>
                     <a href="index.php?route=admin/proveedor/eliminar&id=<?= $prov['idPROVEEDOR'] ?>" class="btn btn-sm btn-danger"
                        onclick="return confirm('¿Eliminar este proveedor?');">Eliminar</a>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>

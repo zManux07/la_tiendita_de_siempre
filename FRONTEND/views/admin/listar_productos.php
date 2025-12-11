@@ -68,12 +68,17 @@ $productos = $productoModel->obtenerTodos(); // Usa tu método correspondiente
                 <td><?= $p['idCATEGORIA'] ?></td>
                 <td><?= $p['idPROVEEDOR'] ?></td>
 
-
                 <td>
-                    <a href="index.php?route=admin/producto/editar&id=<?= $p['idPRODUCTO'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="index.php?route=admin/producto/eliminar&id=<?= $p['idPRODUCTO'] ?>" class="btn btn-sm btn-danger"
-                       onclick="return confirm('¿Eliminar este producto?');">Eliminar</a>
+                    <div class="btn-group">
+                        <a href="index.php?route=admin/producto/editar&id=<?= $p['idPRODUCTO'] ?>" 
+                           class="btn btn-sm btn-warning">Editar</a>
+                        <a href="index.php?route=admin/producto/eliminar&id=<?= $p['idPRODUCTO'] ?>" 
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('¿Eliminar este producto?');">Eliminar</a>
+                    </div>
                 </td>
+
+
             </tr>
         <?php endforeach; ?>
         </tbody>

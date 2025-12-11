@@ -65,6 +65,7 @@ $categorias = $categoriaModel->obtenerTodas();
                 <td><?= $cat['nomCATEGORIA'] ?></td>
                 <td><?= $cat['descripcionCATEGORIA'] ?></td>
                 <td>
+                    <div class="btn-group">
                     <a href="index.php?route=admin/categoria/editar&id=<?= $cat['idCATEGORIA'] ?>" class="btn btn-sm btn-warning">
                         Editar
                     </a>
@@ -73,6 +74,7 @@ $categorias = $categoriaModel->obtenerTodas();
                        onclick="return confirm('¿Seguro que deseas eliminar esta categoría?');">
                         Eliminar
                     </a>
+                    </div>
                 </td>
             </tr>
             <?php endforeach; ?>

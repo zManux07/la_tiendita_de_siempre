@@ -65,9 +65,11 @@ $usuarios = $usuarioModel->obtenerTodos();
                 <td><?= $u['tipodocumenUSUARIO'] . ' ' . $u['numdocUSUARIO'] ?></td>
 
                 <td>
+                    <div class="btn-group">
                     <a href="index.php?route=admin/usuario/editar&id=<?= $u['idUSUARIO'] ?>" class="btn btn-sm btn-warning">Editar</a>
                     <a href="index.php?route=admin/usuario/eliminar&id=<?= $u['idUSUARIO'] ?>" class="btn btn-sm btn-danger"
                        onclick="return confirm('¿Eliminar este usuario?');">Eliminar</a>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -65,11 +65,13 @@ $empleados = $empleadoModel->obtenerTodos();
                 <td><?= $e['correo'] ?></td>
                 
 <td>
+    <div class="btn-group">
     <a href="index.php?route=admin/empleado/editar&id=<?= $e['id_empleado']; ?>" 
        class="btn btn-sm btn-warning">Editar</a>
 
     <a href="index.php?route=admin/empleado/eliminar&id=<?= $e['id_empleado']; ?>" 
        class="btn btn-sm btn-danger">Eliminar</a>
+    </div>
 </td>
 
 
