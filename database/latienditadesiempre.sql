@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-12-2025 a las 20:39:37
+-- Tiempo de generación: 15-12-2025 a las 20:53:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -55,7 +55,7 @@ INSERT INTO `categoria` (`idCATEGORIA`, `nomCATEGORIA`, `descripcionCATEGORIA`) 
 (1, 'Bebidas', 'Categoría de bebidas'),
 (2, 'Aseo', 'Categoría de aseo'),
 (3, 'Misceláneos', 'Varios productos'),
-(4, 'Alimentos', 'Productos alimenticios '),
+(4, 'Alimentos', 'Productos alimenticios\r\n\r\n'),
 (6, 'Higiene', 'Productos de higiene personal'),
 (7, 'Limpieza', 'Productos de limpieza del hogar'),
 (8, 'Electrónica', 'Artículos electrónicos');
@@ -80,8 +80,8 @@ CREATE TABLE `detallesalida` (
 --
 
 INSERT INTO `detallesalida` (`idDETALLE`, `idFACTURA`, `idPRODUCTO`, `cantiSalidaDETALLESALIDA`, `valorunitarioDETALLESALIDA`, `valorTotalventaDETALLESALIDA`) VALUES
-(2, 2, 3, 40, 3000, 120000),
-(3, 3, 3, 140, 3000, 420000);
+(7, 7, 4, 10, 4000, 40000),
+(8, 8, 4, 10, 6000, 60000);
 
 -- --------------------------------------------------------
 
@@ -103,7 +103,7 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id_empleado`, `nombre`, `cargo`, `correo`, `telefono`, `fecha_ingreso`) VALUES
-(2, 'pepito', 'cajero', 'sebitas@gmail.com', '3124569054', '2025-12-02');
+(1, 'Manuel Santiago Diaz Sandoval', 'Empleado', 'mfds.camilo@gmail.com', '3182569054', '2025-11-19');
 
 -- --------------------------------------------------------
 
@@ -129,7 +129,11 @@ INSERT INTO `entrada` (`idENTRADA`, `fechaIngreENTRADA`, `cantIngreENTRADA`, `id
 (1, '2025-11-19', 40, 3, 7, 'E-001', 3000),
 (2, '2025-11-19', 40, 3, 7, '', 3000),
 (3, '2025-11-19', 40, 3, 7, 'E-001', 3000),
-(4, '2025-11-19', 100, 3, 7, '', 3000);
+(4, '2025-11-19', 100, 3, 7, '', 3000),
+(5, '2025-11-19', 2, 4, 7, '', 5500),
+(6, '2025-12-04', 20, 4, 7, '', 5500),
+(7, '2025-12-15', 10, 2, 7, '', 12000),
+(8, '2025-12-15', -10, 4, 7, '', 5000);
 
 -- --------------------------------------------------------
 
@@ -149,8 +153,8 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`idFACTURA`, `fechaFACTURA`, `idUSUARIO`, `totalFACTURA`) VALUES
-(2, '2025-11-19', 7, 120000),
-(3, '2025-11-19', 7, 420000);
+(7, '2025-12-04', 7, 40000),
+(8, '2025-12-04', 7, 60000);
 
 -- --------------------------------------------------------
 
@@ -166,6 +170,14 @@ CREATE TABLE `mensajes_contacto` (
   `mensaje` text NOT NULL,
   `fecha_envio` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mensajes_contacto`
+--
+
+INSERT INTO `mensajes_contacto` (`id_mensaje`, `nombre`, `correo`, `telefono`, `mensaje`, `fecha_envio`) VALUES
+(1, 'pepito', 'perez@gmail.com', '3123342343', 'excelentes servicios', '2025-12-04 18:28:17'),
+(2, 'pepito', 'mfds.camilo@gmail.com', '3123342343', 'asadadasd', '2025-12-04 18:44:42');
 
 -- --------------------------------------------------------
 
@@ -207,9 +219,9 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`idPRODUCTO`, `nomPRODUCTO`, `marcaPRODUCTO`, `precioPRODUCTO`, `cantidadenstockPRODUCTO`, `fechaingrePRODUCTO`, `unidadMedidaPRODUCTO`, `fotoPRODUCTO`, `idCATEGORIA`, `idPROVEEDOR`, `destacado`) VALUES
 (1, 'Coca Cola 1.5L', 'Coca Cola', 5000, 40, '2025-11-13', 'Unidad', 'assets/img/cocacola.png', 1, 1, 1),
-(2, 'Detergente 1Kg', 'Ariel', 12000, 30, '2025-11-13', 'Unidad', 'assets/img/ariel.png', 2, 2, 0),
+(2, 'Detergente 1Kg', 'Ariel', 12000, 40, '2025-11-13', 'Unidad', 'assets/img/ariel.png', 2, 2, 0),
 (3, 'Galletas Festival', 'Noel', 3000, 40, '2025-11-13', 'Paquete', 'assets/img/festival.png', 3, 1, 1),
-(6, 'Leche', 'Colanta', 5000, 50, '2025-12-02', 'L', 'assets/img/692f2f5ad5365_691dcaa402a56_leche.png', 1, 5, 1);
+(4, 'Leche', 'Colanta', 5000, 40, '2025-11-19', 'L', 'assets/img/691dcaa402a56_leche.png', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -260,7 +272,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUSUARIO`, `numdocUSUARIO`, `tipodocumenUSUARIO`, `nomUSUARIO`, `direcUSUARIO`, `telUSUARIO`, `emailUSUARIO`, `pass`, `rolUSUARIO`, `cargoUSUARIO`) VALUES
-(7, 1234567890, 'TI', 'Administrador', NULL, NULL, 'admin@admin.com', '$2y$10$zM4V2/4TUaPVrJ9Bbi.0V.ruP6E63l4FabUsXsBOovlsCDR90NZla', 'admin', NULL);
+(7, 123456789, 'CC', 'Administrador', NULL, NULL, 'admin@admin.com', '$2y$10$zM4V2/4TUaPVrJ9Bbi.0V.ruP6E63l4FabUsXsBOovlsCDR90NZla', 'admin', NULL),
+(8, 1150184322, 'TI', 'Manuel Santiago Diaz Sandoval', NULL, NULL, 'msds.0730@gmail.com', '$2y$10$45/EK/64AinXl0qFgpIseOM8c63N9s2sciC2ZXlkLuUYG/beNzZNm', 'cliente', NULL),
+(10, 123454654, 'CC', 'albert', NULL, NULL, 'sebastianvargas2246@gmail.com', '$2y$10$vKcmRsgts/6Jn76XxEjxmOvc8WrKpt8vpndgajD6Ddca48fRM.nVS', 'cliente', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -351,7 +365,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `idCarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idCarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -363,31 +377,31 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detallesalida`
 --
 ALTER TABLE `detallesalida`
-  MODIFY `idDETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idDETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `idENTRADA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idENTRADA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFACTURA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idFACTURA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes_contacto`
 --
 ALTER TABLE `mensajes_contacto`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
@@ -399,7 +413,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idPRODUCTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idPRODUCTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -411,7 +425,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
