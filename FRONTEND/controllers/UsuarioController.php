@@ -15,44 +15,53 @@ class UsuarioController {
         }
     }
 
-    public function crear() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $datos = [
-                'numdocUSUARIO' => $_POST['numdocUSUARIO'] ?? '',
-                'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'] ?? 'CC',
-                'nomUSUARIO' => $_POST['nomUSUARIO'] ?? '',
-                'direcUSUARIO' => $_POST['direcUSUARIO'] ?? '',
-                'telUSUARIO' => $_POST['telUSUARIO'] ?? '',
-                'emailUSUARIO' => $_POST['emailUSUARIO'] ?? '',
-                'pass' => $_POST['pass'],
-                'rolUSUARIO' => $_POST['rolUSUARIO'] ?? 'cliente',
-                'cargoUSUARIO' => $_POST['cargoUSUARIO'] ?? null
-            ];
+   public function crear() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if (empty($datos['nomUSUARIO']) || empty($datos['emailUSUARIO']) || empty($datos['pass'])) {
-                $_SESSION['error'] = 'Nombre, email y contraseña son requeridos';
-                header('Location: index.php?route=admin/usuario/crear');
-                exit;
-            }
-
-            if ($this->usuarioModel->obtenerPorEmail($datos['emailUSUARIO'])) {
-                $_SESSION['error'] = 'El email ya está registrado';
-                header('Location: index.php?route=admin/usuario/crear');
-                exit;
-            }
-
-            if ($this->usuarioModel->crear($datos)) {
-                $_SESSION['success'] = 'Usuario creado exitosamente';
-            } else {
-                $_SESSION['error'] = 'Error al crear el usuario';
-            }
-
-            header('Location: index.php?route=admin/dashboard');
+        // 🔐 VALIDAR CONFIRMACIÓN DE CONTRASEÑA
+        if ($_POST['pass'] !== $_POST['pass_confirm']) {
+            $_SESSION['error'] = 'Las contraseñas no coinciden';
+            header('Location: index.php?route=admin/usuario/crear');
             exit;
         }
 
-        return 'views/admin/crear_usuario.php';
+        $datos = [
+            'numdocUSUARIO' => $_POST['numdocUSUARIO'] ?? '',
+            'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'] ?? 'CC',
+            'nomUSUARIO' => $_POST['nomUSUARIO'] ?? '',
+            'direcUSUARIO' => $_POST['direcUSUARIO'] ?? '',
+            'telUSUARIO' => $_POST['telUSUARIO'] ?? '',
+            'emailUSUARIO' => $_POST['emailUSUARIO'] ?? '',
+            'pass' => $_POST['pass'],
+            'rolUSUARIO' => $_POST['rolUSUARIO'] ?? 'cliente',
+            'cargoUSUARIO' => $_POST['cargoUSUARIO'] ?? null
+        ];
+
+        if (empty($datos['nomUSUARIO']) || empty($datos['emailUSUARIO']) || empty($datos['pass'])) {
+            $_SESSION['error'] = 'Nombre, email y contraseña son requeridos';
+            header('Location: index.php?route=admin/usuario/crear');
+            exit;
+        }
+
+        if ($this->usuarioModel->obtenerPorEmail($datos['emailUSUARIO'])) {
+            $_SESSION['error'] = 'El email ya está registrado';
+            header('Location: index.php?route=admin/usuario/crear');
+            exit;
+        }
+
+        if ($this->usuarioModel->crear($datos)) {
+            $_SESSION['success'] = 'Usuario creado exitosamente';
+        } else {
+            $_SESSION['error'] = 'Error al crear el usuario';
+        }
+
+        header('Location: index.php?route=admin/dashboard');
+        exit;
     }
+
+    return 'views/admin/crear_usuario.php';
+}
+
 public function editar()
 {
     // Si se envió el formulario (POST)

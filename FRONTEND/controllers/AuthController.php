@@ -46,14 +46,14 @@ class AuthController {
         public function registro() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // 1. Validación de contraseña ANTES de hashear
+        // verificar contraseña ANTES de hashear
             if ($_POST['pass'] !== $_POST['pass_confirm']) {
             $_SESSION['error'] = 'Las contraseñas no coinciden';
             header('Location: index.php?route=registro');
             exit;
         }
 
-        // 2. Preparar datos SIN hashear
+        // preparar datos SIN hashear
         $datos = [
             'numdocUSUARIO' => $_POST['numdocUSUARIO'] ?? '',
             'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'] ?? 'CC',

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-12-2025 a las 20:53:18
+-- Tiempo de generación: 29-01-2026 a las 21:08:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -57,8 +57,7 @@ INSERT INTO `categoria` (`idCATEGORIA`, `nomCATEGORIA`, `descripcionCATEGORIA`) 
 (3, 'Misceláneos', 'Varios productos'),
 (4, 'Alimentos', 'Productos alimenticios\r\n\r\n'),
 (6, 'Higiene', 'Productos de higiene personal'),
-(7, 'Limpieza', 'Productos de limpieza del hogar'),
-(8, 'Electrónica', 'Artículos electrónicos');
+(7, 'Limpieza', 'Productos de limpieza del hogar');
 
 -- --------------------------------------------------------
 
@@ -81,7 +80,12 @@ CREATE TABLE `detallesalida` (
 
 INSERT INTO `detallesalida` (`idDETALLE`, `idFACTURA`, `idPRODUCTO`, `cantiSalidaDETALLESALIDA`, `valorunitarioDETALLESALIDA`, `valorTotalventaDETALLESALIDA`) VALUES
 (7, 7, 4, 10, 4000, 40000),
-(8, 8, 4, 10, 6000, 60000);
+(8, 8, 4, 10, 6000, 60000),
+(9, 9, 3, 1, 1900, 1900),
+(10, 9, 6, 4, 2450, 9800),
+(11, 10, 6, 3, 2450, 7350),
+(12, 11, 3, 15, 1900, 28500),
+(13, 11, 4, 10, 5000, 50000);
 
 -- --------------------------------------------------------
 
@@ -97,13 +101,6 @@ CREATE TABLE `empleados` (
   `telefono` varchar(20) DEFAULT NULL,
   `fecha_ingreso` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `empleados`
---
-
-INSERT INTO `empleados` (`id_empleado`, `nombre`, `cargo`, `correo`, `telefono`, `fecha_ingreso`) VALUES
-(1, 'Manuel Santiago Diaz Sandoval', 'Empleado', 'mfds.camilo@gmail.com', '3182569054', '2025-11-19');
 
 -- --------------------------------------------------------
 
@@ -154,7 +151,10 @@ CREATE TABLE `factura` (
 
 INSERT INTO `factura` (`idFACTURA`, `fechaFACTURA`, `idUSUARIO`, `totalFACTURA`) VALUES
 (7, '2025-12-04', 7, 40000),
-(8, '2025-12-04', 7, 60000);
+(8, '2025-12-04', 7, 60000),
+(9, '2026-01-04', 7, 11700),
+(10, '2026-01-29', 11, 7350),
+(11, '2026-01-29', 11, 78500);
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,9 @@ CREATE TABLE `mensajes_contacto` (
 
 INSERT INTO `mensajes_contacto` (`id_mensaje`, `nombre`, `correo`, `telefono`, `mensaje`, `fecha_envio`) VALUES
 (1, 'pepito', 'perez@gmail.com', '3123342343', 'excelentes servicios', '2025-12-04 18:28:17'),
-(2, 'pepito', 'mfds.camilo@gmail.com', '3123342343', 'asadadasd', '2025-12-04 18:44:42');
+(2, 'pepito', 'mfds.camilo@gmail.com', '3123342343', 'asadadasd', '2025-12-04 18:44:42'),
+(3, 'Caira', 'camargocaira07@gmail.com', '3208062761', 'Galleta festival muy cara, comparándola con precios de otras tiendas; otra cosa, me estas vendiendo un producto virtual, o sea, me toca pagar un adicional más por el domicilio, nadie me garantiza que el producto va a llegar en optimas condiciones. Gracias. mejoren', '2026-01-05 02:02:56'),
+(4, 'santiago', 'camarrgosanti23@gmail.com', '3216545', 'buena pagina', '2026-01-29 19:34:25');
 
 -- --------------------------------------------------------
 
@@ -192,6 +194,15 @@ CREATE TABLE `pagos` (
   `monto` decimal(10,2) DEFAULT NULL,
   `fecha_pago` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pagos`
+--
+
+INSERT INTO `pagos` (`idPago`, `idFactura`, `metodo_pago`, `monto`, `fecha_pago`) VALUES
+(1, 9, 'Tarjeta', 12000.00, '2026-01-29 19:20:11'),
+(2, 9, 'Transferencia', 11700.00, '2026-01-29 19:42:26'),
+(3, 11, 'Efectivo', 78500.00, '2026-01-29 19:46:31');
 
 -- --------------------------------------------------------
 
@@ -220,8 +231,9 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`idPRODUCTO`, `nomPRODUCTO`, `marcaPRODUCTO`, `precioPRODUCTO`, `cantidadenstockPRODUCTO`, `fechaingrePRODUCTO`, `unidadMedidaPRODUCTO`, `fotoPRODUCTO`, `idCATEGORIA`, `idPROVEEDOR`, `destacado`) VALUES
 (1, 'Coca Cola 1.5L', 'Coca Cola', 5000, 40, '2025-11-13', 'Unidad', 'assets/img/cocacola.png', 1, 1, 1),
 (2, 'Detergente 1Kg', 'Ariel', 12000, 40, '2025-11-13', 'Unidad', 'assets/img/ariel.png', 2, 2, 0),
-(3, 'Galletas Festival', 'Noel', 3000, 40, '2025-11-13', 'Paquete', 'assets/img/festival.png', 3, 1, 1),
-(4, 'Leche', 'Colanta', 5000, 40, '2025-11-19', 'L', 'assets/img/691dcaa402a56_leche.png', 1, 1, 1);
+(3, 'Galletas Festival', 'Noel', 1900, 24, '2025-11-13', 'Paquete', 'assets/img/festival.png', 3, 1, 1),
+(4, 'Leche', 'Colanta', 5000, 30, '2025-11-19', 'L', 'assets/img/691dcaa402a56_leche.png', 1, 1, 1),
+(6, 'Arroz', 'Roa', 2450, 193, '2026-01-05', 'Und', 'assets/img/695b1c3aea708_descarga.jpg', 4, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -273,8 +285,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idUSUARIO`, `numdocUSUARIO`, `tipodocumenUSUARIO`, `nomUSUARIO`, `direcUSUARIO`, `telUSUARIO`, `emailUSUARIO`, `pass`, `rolUSUARIO`, `cargoUSUARIO`) VALUES
 (7, 123456789, 'CC', 'Administrador', NULL, NULL, 'admin@admin.com', '$2y$10$zM4V2/4TUaPVrJ9Bbi.0V.ruP6E63l4FabUsXsBOovlsCDR90NZla', 'admin', NULL),
-(8, 1150184322, 'TI', 'Manuel Santiago Diaz Sandoval', NULL, NULL, 'msds.0730@gmail.com', '$2y$10$45/EK/64AinXl0qFgpIseOM8c63N9s2sciC2ZXlkLuUYG/beNzZNm', 'cliente', NULL),
-(10, 123454654, 'CC', 'albert', NULL, NULL, 'sebastianvargas2246@gmail.com', '$2y$10$vKcmRsgts/6Jn76XxEjxmOvc8WrKpt8vpndgajD6Ddca48fRM.nVS', 'cliente', NULL);
+(11, 23165456, 'CC', 'santiago', 'ibague', 3312564, 'camarrgosanti23@gmail.com', '$2y$10$2ViwqdDKMqgce/kVvHOnBuGw70jvxJpe6OfNDai5vmsFYqEUGEx4W', 'cliente', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -365,19 +376,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `idCarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idCarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCATEGORIA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idCATEGORIA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `detallesalida`
 --
 ALTER TABLE `detallesalida`
-  MODIFY `idDETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idDETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -389,43 +400,43 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `idENTRADA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idENTRADA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFACTURA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idFACTURA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes_contacto`
 --
 ALTER TABLE `mensajes_contacto`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idPRODUCTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idPRODUCTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idPROVEEDOR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idPROVEEDOR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
