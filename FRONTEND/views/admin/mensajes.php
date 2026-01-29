@@ -93,7 +93,10 @@ $mensajes = $mensajeModel->obtenerTodos();
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            <a href="mailto:<?= htmlspecialchars($msg['correo']) ?>" class="btn btn-primary">Responder</a>
+                                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=<?= urlencode($msg['correo']) ?>" target="_blank" class="btn btn-primary">Responder</a>
+
+
+
                                         </div>
                                     </div>
                                 </div>
