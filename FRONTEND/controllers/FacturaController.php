@@ -78,4 +78,48 @@ class FacturaController {
 
         return 'views/frontend/compra_exitosa.php';
     }
+        // =========================
+    // ======= ADMIN ===========
+    // =========================
+
+   public function listarAdmin() {
+
+    $facturas = $this->facturaModel->obtenerTodas();
+    $totalPaginas = 1;
+
+    return [
+        'view' => 'views/admin/listar_factura.php',
+        'facturas' => $facturas,
+        'totalPaginas' => $totalPaginas
+    ];
+}
+
+    public function verAdmin() {
+    if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+        header('Location: index.php?route=login');
+        exit;
+    }
+
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        header('Location: index.php?route=admin/factura/listar');
+        exit;
+    }
+
+    $factura = $this->facturaModel->obtenerPorId($id);
+    $detalles = $this->detalleSalidaModel->obtenerPorFactura($id);
+
+    if (!$factura) {
+        header('Location: index.php?route=admin/factura/listar');
+        exit;
+    }
+
+    return [
+        'view' => 'views/admin/ver_factura.php',
+        'factura' => $factura,
+        'detalles' => $detalles
+    ];
+}
+
 }

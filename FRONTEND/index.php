@@ -306,8 +306,46 @@ case 'admin/empleado/listar':
     require 'views/admin/listar_empleados.php';
     break;
 
+    case 'admin/factura/listar':
+    $controller = new FacturaController(
+        new FacturaModel($conn),
+        new DetalleSalidaModel($conn),
+        new CarritoModel($conn),
+        new ProductoModel($conn)
+    );
+
+    $data = $controller->listarAdmin();
+
+    $facturas = $data['facturas'];
+    $totalPaginas = $data['totalPaginas'];
+
+    require $data['view'];
+    break;
+
+case 'admin/factura/ver':
+    $controller = new FacturaController(
+        new FacturaModel($conn),
+        new DetalleSalidaModel($conn),
+        new CarritoModel($conn),
+        new ProductoModel($conn)
+    );
+
+    $data = $controller->verAdmin();
+
+    $factura  = $data['factura'];
+    $detalles = $data['detalles'];
+
+    require $data['view'];
+    break;
+
+
+
 
     default:
         header('Location: index.php?route=index');
         exit;
+
+
+
+
 }

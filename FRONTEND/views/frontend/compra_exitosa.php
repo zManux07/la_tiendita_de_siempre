@@ -71,7 +71,8 @@ $detalles = $detalleSalidaModel->obtenerPorFactura($_GET['id']);
             </div>
 
             <div class="text-center">
-                <p class="text-muted mb-3">Recibirás un email de confirmación pronto</p>
+                <a href="pdf/factura.php?id=<?= $factura['idFACTURA'] ?>" 
+                class="btn btn-danger btn-lg mt-3">📄 Descargar Factura en PDF</a>
                 <a href="index.php?route=index" class="btn btn-primary btn-lg">Volver al Inicio</a>
             </div>
         </div>

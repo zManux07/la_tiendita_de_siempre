@@ -165,8 +165,9 @@ $entradaModel = new EntradaModel($conn);
                         <h5 class="mb-0">💰 Ventas y Pagos</h5>
                     </div>
                     <div class="card-body">
-                        <a href="index.php?route=admin/pago/crear" class="btn btn-primary btn-sm mb-2">+ Registrar Pago</a>
                         <a href="index.php?route=admin/mensajes" class="btn btn-warning btn-sm mb-2">📧 Ver Mensajes</a>
+                        <a href="index.php?route=admin/factura/listar" class="btn btn-success btn-sm mb-2">🧾 Ver Facturas</a>
+
                     </div>
                 </div>
             </div>
