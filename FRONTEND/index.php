@@ -338,7 +338,17 @@ case 'admin/factura/ver':
     require $data['view'];
     break;
 
+case 'admin/pagos/ver':
+    $controller = new PagoController(
+        new PagoModel($conn),
+        new FacturaModel($conn)
+    );
 
+    $data  = $controller->verPagos();
+    $pagos = $data['pagos'];
+
+    require $data['view'];
+    break;
 
 
     default:

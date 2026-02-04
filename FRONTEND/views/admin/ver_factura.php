@@ -1,3 +1,27 @@
+<?php
+if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+    header('Location: index.php?route=login');
+    exit;
+}
+require_once __DIR__ . '/../../config/Database.php';
+require_once __DIR__ . '/../../models/FacturaModel.php';
+$db = new Database();
+$conn = $db->connect();
+$facturaModel = new FacturaModel($conn);
+$facturaId = $_GET['id'] ?? null;
+if (!$facturaId) {
+    header('Location: index.php?route=admin/factura/listar');
+    exit;
+}
+$factura = $facturaModel->obtenerPorId($facturaId); 
+$detalles = $facturaModel->obtenerDetallesPorFacturaId($facturaId);
+if (!$factura) {
+    header('Location: index.php?route=admin/factura/listar');
+    exit;
+}
+                
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

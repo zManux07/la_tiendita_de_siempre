@@ -67,4 +67,23 @@ class FacturaModel {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'] ?? 0;
     }
+public function obtenerDetallesPorFacturaId($idFactura) {
+    $sql = "
+        SELECT 
+            p.nomPRODUCTO,
+            ds.cantiSalidaDETALLESALIDA,
+            ds.valorunitarioDETALLESALIDA,
+            ds.valorTotalventaDETALLESALIDA
+        FROM detallesalida ds
+        INNER JOIN producto p ON ds.idPRODUCTO = p.idPRODUCTO
+        WHERE ds.idFACTURA = ?
+    ";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$idFactura]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+}
+
 }

@@ -54,4 +54,22 @@ class PagoModel {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'] ?? 0;
     }
+
+    public function obtenerPagos() {
+    $sql = "
+        SELECT 
+            idPago,
+            idFactura,
+            metodo_pago,
+            monto,
+            fecha_pago
+        FROM pagos
+        ORDER BY fecha_pago DESC
+    ";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }

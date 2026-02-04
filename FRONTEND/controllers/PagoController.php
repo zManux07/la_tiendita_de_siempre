@@ -48,4 +48,14 @@ class PagoController {
         'facturas' => $facturas
         ];
     }
+
+public function verPagos() {
+    return [
+        'view'  => 'views/admin/ver_pagos.php',
+        'pagos' => $this->pagoModel->obtenerPagos()
+    ];
+}
+
+
+
 }

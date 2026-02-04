@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+    header('Location: index.php?route=login');
+    exit;
+}
 
 require_once __DIR__ . '/../../config/Database.php';
 require_once __DIR__ . '/../../models/CategoriaModel.php';
