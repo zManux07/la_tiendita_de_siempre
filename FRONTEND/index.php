@@ -28,6 +28,9 @@ require_once 'controllers/EmpleadoController.php';
 require_once 'controllers/PagoController.php';
 require_once 'controllers/MensajeController.php';
 
+require_once 'controllers/MensajeController.php';
+require_once 'controllers/RecuperacionController.php';
+
 $db = new Database();
 $conn = $db->connect();
 
@@ -349,6 +352,32 @@ case 'admin/pagos/ver':
 
     require $data['view'];
     break;
+    
+    case 'recuperar_password':
+        require_once 'controllers/RecuperacionController.php';
+        $controller = new RecuperacionController($conn);
+        $view = $controller->solicitarRecuperacion();
+        require $view;
+        break;
+
+    case 'recuperar_password/procesar':
+        require_once 'controllers/RecuperacionController.php';
+        $controller = new RecuperacionController($conn);
+        $controller->procesarSolicitud();
+        break;
+
+    case 'restablecer_password':
+        require_once 'controllers/RecuperacionController.php';
+        $controller = new RecuperacionController($conn);
+        $view = $controller->mostrarFormularioRestablecimiento();
+        require $view;
+        break;
+
+    case 'restablecer_password/procesar':
+        require_once 'controllers/RecuperacionController.php';
+        $controller = new RecuperacionController($conn);
+        $controller->restablecerPassword();
+        break;
 
 
     default:
