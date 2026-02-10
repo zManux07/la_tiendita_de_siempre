@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2026 a las 21:08:21
+-- Tiempo de generación: 10-02-2026 a las 05:30:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -85,7 +85,13 @@ INSERT INTO `detallesalida` (`idDETALLE`, `idFACTURA`, `idPRODUCTO`, `cantiSalid
 (10, 9, 6, 4, 2450, 9800),
 (11, 10, 6, 3, 2450, 7350),
 (12, 11, 3, 15, 1900, 28500),
-(13, 11, 4, 10, 5000, 50000);
+(13, 11, 4, 10, 5000, 50000),
+(14, 12, 3, 1, 1900, 1900),
+(15, 13, 6, 1, 2450, 2450),
+(16, 14, 2, 1, 12000, 12000),
+(17, 14, 1, 2, 5000, 10000),
+(18, 14, 6, 5, 2450, 12250),
+(19, 14, 4, 2, 5000, 10000);
 
 -- --------------------------------------------------------
 
@@ -154,7 +160,10 @@ INSERT INTO `factura` (`idFACTURA`, `fechaFACTURA`, `idUSUARIO`, `totalFACTURA`)
 (8, '2025-12-04', 7, 60000),
 (9, '2026-01-04', 7, 11700),
 (10, '2026-01-29', 11, 7350),
-(11, '2026-01-29', 11, 78500);
+(11, '2026-01-29', 11, 78500),
+(12, '2026-02-02', 15, 1900),
+(13, '2026-02-02', 7, 2450),
+(14, '2026-02-03', 7, 44250);
 
 -- --------------------------------------------------------
 
@@ -229,11 +238,11 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idPRODUCTO`, `nomPRODUCTO`, `marcaPRODUCTO`, `precioPRODUCTO`, `cantidadenstockPRODUCTO`, `fechaingrePRODUCTO`, `unidadMedidaPRODUCTO`, `fotoPRODUCTO`, `idCATEGORIA`, `idPROVEEDOR`, `destacado`) VALUES
-(1, 'Coca Cola 1.5L', 'Coca Cola', 5000, 40, '2025-11-13', 'Unidad', 'assets/img/cocacola.png', 1, 1, 1),
-(2, 'Detergente 1Kg', 'Ariel', 12000, 40, '2025-11-13', 'Unidad', 'assets/img/ariel.png', 2, 2, 0),
-(3, 'Galletas Festival', 'Noel', 1900, 24, '2025-11-13', 'Paquete', 'assets/img/festival.png', 3, 1, 1),
-(4, 'Leche', 'Colanta', 5000, 30, '2025-11-19', 'L', 'assets/img/691dcaa402a56_leche.png', 1, 1, 1),
-(6, 'Arroz', 'Roa', 2450, 193, '2026-01-05', 'Und', 'assets/img/695b1c3aea708_descarga.jpg', 4, 4, 0);
+(1, 'Coca Cola 1.5L', 'Coca Cola', 5000, 38, '2025-11-13', 'Unidad', 'assets/img/cocacola.png', 1, 1, 1),
+(2, 'Detergente 1Kg', 'Ariel', 12000, 39, '2025-11-13', 'Unidad', 'assets/img/ariel.png', 2, 2, 0),
+(3, 'Galletas Festival', 'Noel', 1900, 23, '2025-11-13', 'Paquete', 'assets/img/festival.png', 3, 1, 1),
+(4, 'Leche', 'Colanta', 5000, 28, '2025-11-19', 'L', 'assets/img/691dcaa402a56_leche.png', 1, 1, 1),
+(6, 'Arroz', 'Roa', 2450, 187, '2026-01-05', 'Und', 'assets/img/695b1c3aea708_descarga.jpg', 4, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -276,16 +285,22 @@ CREATE TABLE `usuario` (
   `emailUSUARIO` varchar(40) DEFAULT NULL,
   `pass` varchar(255) DEFAULT NULL,
   `rolUSUARIO` varchar(20) DEFAULT NULL,
-  `cargoUSUARIO` varchar(20) DEFAULT NULL
+  `cargoUSUARIO` varchar(20) DEFAULT NULL,
+  `reset_token` varchar(255) DEFAULT NULL COMMENT 'Token para recuperaci?n de contrase?a',
+  `reset_token_expira` datetime DEFAULT NULL COMMENT 'Fecha de expiraci?n del token',
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Fecha de creaci?n del usuario',
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Fecha ?ltima actualizaci?n'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUSUARIO`, `numdocUSUARIO`, `tipodocumenUSUARIO`, `nomUSUARIO`, `direcUSUARIO`, `telUSUARIO`, `emailUSUARIO`, `pass`, `rolUSUARIO`, `cargoUSUARIO`) VALUES
-(7, 123456789, 'CC', 'Administrador', NULL, NULL, 'admin@admin.com', '$2y$10$zM4V2/4TUaPVrJ9Bbi.0V.ruP6E63l4FabUsXsBOovlsCDR90NZla', 'admin', NULL),
-(11, 23165456, 'CC', 'santiago', 'ibague', 3312564, 'camarrgosanti23@gmail.com', '$2y$10$2ViwqdDKMqgce/kVvHOnBuGw70jvxJpe6OfNDai5vmsFYqEUGEx4W', 'cliente', NULL);
+INSERT INTO `usuario` (`idUSUARIO`, `numdocUSUARIO`, `tipodocumenUSUARIO`, `nomUSUARIO`, `direcUSUARIO`, `telUSUARIO`, `emailUSUARIO`, `pass`, `rolUSUARIO`, `cargoUSUARIO`, `reset_token`, `reset_token_expira`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(7, 123456789, 'CC', 'Administrador', NULL, NULL, 'admin@admin.com', '$2y$10$zM4V2/4TUaPVrJ9Bbi.0V.ruP6E63l4FabUsXsBOovlsCDR90NZla', 'admin', NULL, NULL, NULL, '2026-02-10 03:29:55', '2026-02-10 03:29:55'),
+(11, 23165456, 'CC', 'santiago', 'ibague', 3312564, 'camarrgosanti23@gmail.com', '$2y$10$2ViwqdDKMqgce/kVvHOnBuGw70jvxJpe6OfNDai5vmsFYqEUGEx4W', 'cliente', NULL, '946da43c7cd39fca78454795579ee4f1d8b75fc3e2ba4ffa4492ac430e20d4b1', '2026-02-10 05:58:36', '2026-02-10 03:29:55', '2026-02-10 03:58:36'),
+(15, 1105466148, 'CC', 'sebitas', 'bac', 2147483647, 'sebas@gmail.com', '$2y$10$W5UPZVWpl/kiWY/vjknJj.YJzL1toGVfZV6wsPg85BXcTrmBauFS6', 'cliente', NULL, NULL, NULL, '2026-02-10 03:29:55', '2026-02-10 03:29:55'),
+(16, 12345678, 'CC', 'manuel diaz', 'ibague', 31354658, 'mfds.camilo@gmail.com', '$2y$10$XObhotjlwZf0EFw.GW9tYuku2JBjhc5zb4lDRWJc/CrPHyHGZd0FK', 'cliente', NULL, NULL, NULL, '2026-02-10 03:59:37', '2026-02-10 04:12:10');
 
 --
 -- Índices para tablas volcadas
@@ -366,7 +381,8 @@ ALTER TABLE `proveedor`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUSUARIO`),
-  ADD KEY `idx_usuario_email` (`emailUSUARIO`);
+  ADD KEY `idx_usuario_email` (`emailUSUARIO`),
+  ADD KEY `idx_reset_token` (`reset_token`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -376,7 +392,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `idCarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idCarrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -388,7 +404,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detallesalida`
 --
 ALTER TABLE `detallesalida`
-  MODIFY `idDETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idDETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -406,7 +422,7 @@ ALTER TABLE `entrada`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFACTURA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idFACTURA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes_contacto`
@@ -436,7 +452,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
