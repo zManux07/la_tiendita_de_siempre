@@ -1,0 +1,22 @@
+
+# Archivos de credenciales - NUNCA SUBIR
+.env
+
+# Composer
+/vendor/
+composer.lock
+
+# Archivos temporales
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# PHPStorm / IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Imágenes de productos (opcional, si son muchas)
+/assets/img/productos/

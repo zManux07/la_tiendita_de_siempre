@@ -1,57 +1,58 @@
-
+php
 <?php
-
 
 /**
  * Helper para envío de correos electrónicos con PHPMailer
- * 
- * INSTRUCCIONES DE INSTALACIÓN:
- * 1. Instalar PHPMailer: composer require phpmailer/phpmailer
- * 2. Configurar las credenciales SMTP más abajo
- * 3. Reemplazar el archivo EmailHelper.php original con este
+ * Usa variables de entorno para mayor seguridad
  * 
  * @author Tu Nombre
- * @version 2.0 - Con PHPMailer
+ * @version 3.0 - Con variables de entorno
  */
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
 
-// Si instalaste PHPMailer con Composer:
+// Cargar PHPMailer
 require_once __DIR__ . '/../vendor/autoload.php';
-
-// Si instalaste PHPMailer manualmente (descomenta estas líneas y comenta la de arriba):
-// require_once __DIR__ . '/../PHPMailer/PHPMailer.php';
-// require_once __DIR__ . '/../PHPMailer/SMTP.php';
-// require_once __DIR__ . '/../PHPMailer/Exception.php';
 
 class EmailHelper {
     
-    // ==================== CONFIGURACIÓN ====================
-    // ⚠️ IMPORTANTE: CAMBIA ESTOS VALORES POR LOS TUYOS
-    // =======================================================
+    /**
+     * Configuración desde variables de entorno
+     */
+    private static $configurado = false;
+    private static $smtpHost;
+    private static $smtpPort;
+    private static $smtpSecure;
+    private static $smtpUser;
+    private static $smtpPass;
+    private static $remitente;
+    private static $nombreTienda;
     
     /**
-     * Configuración del servidor SMTP
+     * Cargar configuración desde .env
      */
-    private static $smtpHost = 'smtp.gmail.com';      // Servidor SMTP
-    private static $smtpPort = 587;                   // Puerto (587 para TLS)
-    private static $smtpSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS
-    
-    /**
-     * Credenciales de autenticación
-     * Para Gmail: usa una "Contraseña de aplicación"
-     */
-    private static $smtpUser = 'mfds.camilo@gmail.com';  // ⚠️ CAMBIAR
-    private static $smtpPass = 'ixvt ihnl btza yieb';   // ⚠️ CAMBIAR (contraseña de app de 16 dígitos)
-    
-    /**
-     * Datos del remitente
-     */
-    private static $remitente = 'noreply@latiendita.com';
-    private static $nombreTienda = 'La Tiendita de Siempre';
-    
-    // =======================================================
+    private static function cargarConfiguracion() {
+        if (self::$configurado) {
+            return;
+        }
+        
+        // Cargar variables de entorno
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->load();
+        
+        // Obtener valores
+        self::$smtpHost = $_ENV['SMTP_HOST'] ?? 'smtp.gmail.com';
+        self::$smtpPort = $_ENV['SMTP_PORT'] ?? 587;
+        self::$smtpSecure = $_ENV['SMTP_SECURE'] ?? 'tls';
+        self::$smtpUser = $_ENV['SMTP_USER'];
+        self::$smtpPass = $_ENV['SMTP_PASS'];
+        self::$remitente = $_ENV['SMTP_FROM_EMAIL'] ?? 'noreply@latiendita.com';
+        self::$nombreTienda = $_ENV['SMTP_FROM_NAME'] ?? 'La Tiendita de Siempre';
+        
+        self::$configurado = true;
+    }
     
     /**
      * Enviar email de recuperación de contraseña
@@ -62,6 +63,9 @@ class EmailHelper {
      * @return bool True si se envió correctamente
      */
     public static function enviarRecuperacion($destinatario, $nombreUsuario, $token) {
+        // Cargar configuración
+        self::cargarConfiguracion();
+        
         $mail = new PHPMailer(true);
         
         try {
@@ -71,17 +75,20 @@ class EmailHelper {
             $mail->SMTPAuth   = true;
             $mail->Username   = self::$smtpUser;
             $mail->Password   = self::$smtpPass;
-            $mail->SMTPSecure = self::$smtpSecure;
-            $mail->Port       = self::$smtpPort;
             
-            // Para debugging (descomenta si tienes problemas):
-            // $mail->SMTPDebug = 2; // Ver mensajes de debug
+            // Configurar encriptación
+            if (self::$smtpSecure === 'tls') {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            } else {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            }
+            
+            $mail->Port = self::$smtpPort;
             
             // ===== CODIFICACIÓN =====
             $mail->CharSet = 'UTF-8';
             
             // ===== REMITENTE =====
-            // Usa el email que configuraste en $smtpUser
             $mail->setFrom(self::$smtpUser, self::$nombreTienda);
             
             // ===== DESTINATARIO =====
@@ -101,7 +108,7 @@ class EmailHelper {
             // Cuerpo del email en HTML
             $mail->Body = self::plantillaRecuperacion($nombreUsuario, $urlRecuperacion);
             
-            // Versión en texto plano (por si el cliente no soporta HTML)
+            // Versión en texto plano
             $mail->AltBody = "Hola {$nombreUsuario},\n\n"
                            . "Recibimos una solicitud para restablecer tu contraseña.\n\n"
                            . "Copia y pega este enlace en tu navegador:\n"
@@ -117,7 +124,6 @@ class EmailHelper {
             return true;
             
         } catch (Exception $e) {
-            // Registrar el error en los logs
             error_log("Error PHPMailer al enviar a {$destinatario}: {$mail->ErrorInfo}");
             return false;
         }
@@ -125,10 +131,6 @@ class EmailHelper {
     
     /**
      * Plantilla HTML para email de recuperación
-     * 
-     * @param string $nombreUsuario
-     * @param string $urlRecuperacion
-     * @return string HTML del email
      */
     private static function plantillaRecuperacion($nombreUsuario, $urlRecuperacion) {
         return '
@@ -141,13 +143,11 @@ class EmailHelper {
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
-                <!-- Header -->
                 <div style="text-align: center; margin-bottom: 30px;">
                     <h1 style="color: #28a745; margin: 0;">' . self::$nombreTienda . '</h1>
                     <p style="color: #6c757d; margin: 5px 0;">Tu tienda de barrio de confianza</p>
                 </div>
                 
-                <!-- Contenido -->
                 <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     <h2 style="color: #333; margin-top: 0;">¡Hola, ' . htmlspecialchars($nombreUsuario) . '!</h2>
                     
@@ -155,7 +155,6 @@ class EmailHelper {
                     
                     <p>Si fuiste tú quien solicitó este cambio, haz clic en el siguiente botón:</p>
                     
-                    <!-- Botón de acción -->
                     <div style="text-align: center; margin: 30px 0;">
                         <a href="' . htmlspecialchars($urlRecuperacion) . '" 
                            style="background-color: #28a745; 
@@ -176,7 +175,6 @@ class EmailHelper {
                         </a>
                     </p>
                     
-                    <!-- Advertencia de seguridad -->
                     <div style="background-color: #fff3cd; 
                                 border-left: 4px solid #ffc107; 
                                 padding: 15px; 
@@ -192,7 +190,6 @@ class EmailHelper {
                     </p>
                 </div>
                 
-                <!-- Footer -->
                 <div style="text-align: center; margin-top: 30px; color: #6c757d; font-size: 12px;">
                     <p>Este es un correo automático, por favor no respondas a este mensaje.</p>
                     <p>© ' . date('Y') . ' ' . self::$nombreTienda . '. Todos los derechos reservados.</p>
@@ -205,15 +202,12 @@ class EmailHelper {
     
     /**
      * Obtener URL base del sitio
-     * 
-     * @return string URL base
      */
     private static function obtenerUrlBase() {
         $protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
         $host = $_SERVER['HTTP_HOST'];
         $carpeta = dirname($_SERVER['PHP_SELF']);
         
-        // Asegurar que termine con /
         if (substr($carpeta, -1) !== '/') {
             $carpeta .= '/';
         }
@@ -222,60 +216,69 @@ class EmailHelper {
     }
     
     /**
-     * Verificar que PHPMailer esté instalado
-     * 
-     * @return bool
+     * Verificar configuración
      */
     public static function verificarConfiguracion() {
-        return class_exists('PHPMailer\PHPMailer\PHPMailer');
+        self::cargarConfiguracion();
+        
+        $errores = [];
+        
+        if (empty(self::$smtpUser)) {
+            $errores[] = 'SMTP_USER no configurado en .env';
+        }
+        
+        if (empty(self::$smtpPass)) {
+            $errores[] = 'SMTP_PASS no configurado en .env';
+        }
+        
+        if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+            $errores[] = 'PHPMailer no está instalado';
+        }
+        
+        return [
+            'valido' => empty($errores),
+            'errores' => $errores
+        ];
     }
     
     /**
-     * Enviar email de prueba (para debugging)
-     * 
-     * @param string $emailPrueba Email de destino para la prueba
-     * @return bool
+     * Email de prueba
      */
     public static function enviarEmailPrueba($emailPrueba) {
+        self::cargarConfiguracion();
+        
         $mail = new PHPMailer(true);
         
         try {
-            // Configuración SMTP
             $mail->isSMTP();
             $mail->Host       = self::$smtpHost;
             $mail->SMTPAuth   = true;
             $mail->Username   = self::$smtpUser;
             $mail->Password   = self::$smtpPass;
-            $mail->SMTPSecure = self::$smtpSecure;
-            $mail->Port       = self::$smtpPort;
             
-            // Debug (muestra mensajes de error)
-            $mail->SMTPDebug = 2;
+            if (self::$smtpSecure === 'tls') {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            } else {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            }
             
-            // Codificación
+            $mail->Port = self::$smtpPort;
             $mail->CharSet = 'UTF-8';
             
-            // Remitente y destinatario
             $mail->setFrom(self::$smtpUser, self::$nombreTienda);
             $mail->addAddress($emailPrueba);
             
-            // Contenido
             $mail->isHTML(true);
             $mail->Subject = '✅ Email de Prueba - PHPMailer';
-            $mail->Body    = '<h1>¡Funciona!</h1><p>PHPMailer está configurado correctamente en <strong>La Tiendita de Siempre</strong>.</p>';
+            $mail->Body    = '<h1>¡Funciona!</h1><p>PHPMailer con variables de entorno está configurado correctamente.</p>';
             $mail->AltBody = 'Funciona! PHPMailer está configurado correctamente.';
             
-            // Enviar
             $mail->send();
-            
             return true;
             
         } catch (Exception $e) {
             error_log("Error en email de prueba: {$mail->ErrorInfo}");
-            echo "Error: {$mail->ErrorInfo}";
             return false;
         }
     }
 }
-
-
