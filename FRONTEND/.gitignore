@@ -2,10 +2,6 @@
 # Archivos de credenciales - NUNCA SUBIR
 .env
 
-# Composer
-/vendor/
-composer.lock
-
 # Archivos temporales
 *.log
 *.tmp
@@ -18,5 +14,3 @@ Thumbs.db
 *.swo
 *~
 
-# Imágenes de productos (opcional, si son muchas)
-/assets/img/productos/
