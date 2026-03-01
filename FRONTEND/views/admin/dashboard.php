@@ -133,10 +133,6 @@ $entradaModel = new EntradaModel($conn);
 
                         <a href="index.php?route=admin/proveedor/listar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Proveedores</a>
 
-
-
-
-
                     </div>
                 </div>
             </div>

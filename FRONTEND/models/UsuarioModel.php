@@ -114,7 +114,15 @@ public function actualizar($id, $datos) {
 
   public function eliminar($id) {
     $stmt = $this->db->prepare("DELETE FROM usuario WHERE idUSUARIO = ?");
-    return $stmt->execute([$id]);
+    try {
+    return true;
+} catch (PDOException $e) {
+    // Error de clave foránea (facturas asociadas)
+    if ($e->getCode() == 23000) {
+        return "FACTURAS_ASOCIADAS";
+    }
+    throw $e; // otros errores sí los lanzamos
+}
 }
 
 }

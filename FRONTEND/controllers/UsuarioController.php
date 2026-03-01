@@ -112,6 +112,18 @@ public function eliminar() {
     $id = $_GET['id'];
     $this->usuarioModel->eliminar($id);
     header("Location: index.php?route=admin/usuario/listar");
+
+    $resultado = $this->modelo->eliminar($idUsuario);
+
+if ($resultado === true) {
+    header("Location: index.php?msg=eliminado");
+    exit;
+}
+
+if ($resultado === "FACTURAS_ASOCIADAS") {
+    header("Location: index.php?error=facturas");
+    exit;
+}
 }
 
 }

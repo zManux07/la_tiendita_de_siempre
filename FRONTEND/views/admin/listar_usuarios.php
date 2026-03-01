@@ -22,6 +22,8 @@ $usuarios = $usuarioModel->obtenerTodos();
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
+
+
 </head>
 <body>
 
@@ -83,4 +85,13 @@ $usuarios = $usuarioModel->obtenerTodos();
 
 </div>
 </body>
+    <?php if (isset($_GET['error']) && $_GET['error'] === 'facturas'): ?>
+        <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'No se puede eliminar',
+        text: 'Este usuario tiene facturas asociadas'
+        });
+        </script>
+<?php endif; ?>
 </html>

@@ -2,6 +2,10 @@
 # Archivos de credenciales - NUNCA SUBIR
 .env
 
+
+# Dependencias de Composer
+/vendor/
+
 # Archivos temporales
 *.log
 *.tmp

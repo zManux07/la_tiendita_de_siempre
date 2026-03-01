@@ -55,12 +55,12 @@ if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
 
                             <div class="mb-3">
                                 <label for="correo" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="correo" name="correo">
+                                <input type="email" class="form-control" id="correo" name="correo" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" name="telefono">
+                                <input type="tel" class="form-control" id="telefono" name="telefono" required>
                             </div>
 
                             <div class="mb-3">

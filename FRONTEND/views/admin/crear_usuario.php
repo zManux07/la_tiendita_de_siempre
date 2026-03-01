@@ -98,11 +98,11 @@ if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
                                     <label for="pass" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" id="pass" name="pass" required minlength="6">
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="pass_confirm" class="form-label">Confirmar Contraseña</label>
-                                    <input type="password" class="form-control" id="pass_confirm" name="pass_confirm" required minlength="6">
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="pass_confirm" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="pass_confirm" name="pass_confirm" required minlength="6">
                             </div>
+                        </div>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <a href="index.php?route=admin/dashboard" class="btn btn-secondary">Cancelar</a>

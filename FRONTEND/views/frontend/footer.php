@@ -13,9 +13,16 @@
                     </div>
                     <div class="col-md-4">
                         <h5>Contacto</h5>
-                        <p>Teléfono: +57 318 256 90 54<br>
-                        Email: info@tiendita.com<br>
-                        Dirección: Barrio La Gaviota, Ibague - Tolima</p>
+                        <p>
+                            Teléfono: +57 318 256 90 54<br>
+                            Email: info@tiendita.com<br>
+                            Dirección: Barrio La Gaviota, Ibagué - Tolima<br>
+                        <a href="https://api.whatsapp.com/send/?phone=573182569054&text&type=phone_number&app_absent=0"
+                            class="footer-link"
+                               target="_blank">
+                                Devoluciones
+                                </a>
+                        </p>
                     </div>
                 </div>
                 <hr class="bg-light">

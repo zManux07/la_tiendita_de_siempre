@@ -239,6 +239,16 @@ footer p {
     font-size: 0.95rem;
     line-height: 1.8;
 }
+.footer-link {
+    color: inherit;        /* mismo color del texto */
+    text-decoration: none; /* sin subrayado */
+    font-weight: 500;
+}
+
+.footer-link:hover {
+    text-decoration: underline; /* solo al pasar el mouse */
+    cursor: pointer;
+}  
 
 .list-group-item {
     border: 1px solid var(--border-color);
