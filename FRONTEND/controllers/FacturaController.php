@@ -12,6 +12,7 @@ class FacturaController {
         $this->carritoModel = $carritoModel;
         $this->productoModel = $productoModel;
     }
+    
 
     public function procesar() {
         if (!isset($_SESSION['usuario_id'])) {
@@ -84,6 +85,13 @@ class FacturaController {
 
    public function listarAdmin() {
 
+    if (!isset($_SESSION['usuario_rol']) || 
+       ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
+        header('Location: index.php?route=login');
+        exit;
+    }
+
     $facturas = $this->facturaModel->obtenerTodas();
     $totalPaginas = 1;
 
@@ -94,8 +102,11 @@ class FacturaController {
     ];
 }
 
-    public function verAdmin() {
-    if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+  public function verAdmin() {
+
+    if (!isset($_SESSION['usuario_rol']) || 
+       ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
         header('Location: index.php?route=login');
         exit;
     }
