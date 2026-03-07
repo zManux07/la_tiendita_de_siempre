@@ -11,10 +11,12 @@ class PagoController {
     }
 
     private function verificarAdmin() {
-        if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
-            header('Location: index.php?route=login');
-            exit;
-        }
+       if (!isset($_SESSION['usuario_rol']) || 
+   ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
+    header('Location: index.php?route=login');
+    exit;
+}
     }
 
     public function crear() {

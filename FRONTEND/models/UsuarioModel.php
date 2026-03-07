@@ -2,10 +2,14 @@
 
 class UsuarioModel {
     private $db;
+    private $conn;
+
+    
 
     public function __construct($database) {
         $this->db = $database;
     }
+    
 
     // Obtener todos
     public function obtenerTodos() {
@@ -113,16 +117,19 @@ public function actualizar($id, $datos) {
 
 
   public function eliminar($id) {
-    $stmt = $this->db->prepare("DELETE FROM usuario WHERE idUSUARIO = ?");
     try {
-    return true;
-} catch (PDOException $e) {
-    // Error de clave foránea (facturas asociadas)
-    if ($e->getCode() == 23000) {
-        return "FACTURAS_ASOCIADAS";
+        $stmt = $this->db->prepare(
+            "DELETE FROM usuario WHERE idUSUARIO = ?"
+        );
+        $stmt->execute([$id]);   // 👈 ESTA ERA LA LÍNEA FALTANTE
+        return true;
+    } catch (PDOException $e) {
+        // Error de clave foránea (facturas asociadas)
+        if ($e->getCode() == 23000) {
+            return "FACTURAS_ASOCIADAS";
+        }
+        throw $e;
     }
-    throw $e; // otros errores sí los lanzamos
-}
 }
 
 }

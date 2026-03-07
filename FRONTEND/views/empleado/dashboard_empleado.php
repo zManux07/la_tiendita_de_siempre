@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'empleado') {
     header('Location: index.php?route=login');
     exit;
 }
@@ -34,14 +34,14 @@ $entradaModel = new EntradaModel($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Admin</title>
+    <title>Dashboard - Empleado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark-blue">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="index.php?route=admin/dashboard">🏢 Dashboard Admin</a>
+            <a class="navbar-brand fw-bold" href="index.php?route=empleado/dashboard">🏢 Dashboard Empleado</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -136,19 +136,6 @@ $entradaModel = new EntradaModel($conn);
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-primary-blue text-white">
-                        <h5 class="mb-0">👥 Usuarios y Empleados</h5>
-                    </div>
-                    <div class="card-body">
-                        <a href="index.php?route=admin/usuario/crear" class="btn btn-primary btn-sm mb-2">+ Crear Usuario</a>
-                        <a href="index.php?route=admin/usuario/listar" class="btn btn-outline-primary btn-sm mb-2">✏ Gestionar Usuarios</a>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header bg-primary-blue text-white">

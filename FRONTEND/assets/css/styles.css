@@ -38,6 +38,7 @@ body {
 
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: darkblue !important;
 }
 
 .navbar-brand {
@@ -101,8 +102,14 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--primary-blue);
+    background-color: blue;
     color: white;
+}
+
+.btn-categoria {
+    background-color: #0d6efd;
+    color: white;  
+
 }
 
 .btn-primary:hover {
@@ -128,7 +135,7 @@ body {
 }
 
 .btn-success {
-    background-color: #198754;
+    background-color: green;
 }
 
 .btn-success:hover {
@@ -136,7 +143,7 @@ body {
 }
 
 .btn-info {
-    background-color: #0dcaf0;
+    background-color: cyan;
 }
 
 .btn-info:hover {
@@ -166,6 +173,7 @@ body {
 
 .table {
     margin-bottom: 0;
+    --bs-table-color: black;
 }
 
 .table thead {

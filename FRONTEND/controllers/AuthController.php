@@ -29,10 +29,16 @@ class AuthController {
 
                 if ($usuario['rolUSUARIO'] === 'admin') {
                     header('Location: index.php?route=admin/dashboard');
+
+                } elseif ($usuario['rolUSUARIO'] === 'empleado') {
+                    header('Location: index.php?route=empleado/dashboard');
+
                 } else {
                     header('Location: index.php?route=index');
                 }
+
                 exit;
+
             } else {
                 $_SESSION['error'] = 'Credenciales inválidas';
                 header('Location: index.php?route=login');
@@ -43,55 +49,51 @@ class AuthController {
         return 'views/frontend/login.php';
     }
 
-        public function registro() {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    public function registro() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // verificar contraseña ANTES de hashear
             if ($_POST['pass'] !== $_POST['pass_confirm']) {
-            $_SESSION['error'] = 'Las contraseñas no coinciden';
+                $_SESSION['error'] = 'Las contraseñas no coinciden';
+                header('Location: index.php?route=registro');
+                exit;
+            }
+
+            $datos = [
+                'numdocUSUARIO' => $_POST['numdocUSUARIO'] ?? '',
+                'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'] ?? 'CC',
+                'nomUSUARIO' => $_POST['nomUSUARIO'] ?? '',
+                'direcUSUARIO' => $_POST['direcUSUARIO'] ?? '',
+                'telUSUARIO' => $_POST['telUSUARIO'] ?? '',
+                'emailUSUARIO' => $_POST['emailUSUARIO'] ?? '',
+                'pass' => $_POST['pass'],
+            ];
+
+            if (empty($datos['nomUSUARIO']) || empty($datos['emailUSUARIO']) || empty($datos['pass'])) {
+                $_SESSION['error'] = 'Todos los campos son requeridos';
+                header('Location: index.php?route=registro');
+                exit;
+            }
+
+            if ($this->usuarioModel->obtenerPorEmail($datos['emailUSUARIO'])) {
+                $_SESSION['error'] = 'El email ya está registrado';
+                header('Location: index.php?route=registro');
+                exit;
+            }
+
+            if ($this->usuarioModel->crear($datos)) {
+                $_SESSION['success'] = 'Registro exitoso. Inicia sesión';
+                header('Location: index.php?route=login');
+                exit;
+            }
+
+            $_SESSION['error'] = 'Error al registrar. Intenta de nuevo';
             header('Location: index.php?route=registro');
             exit;
         }
 
-        // preparar datos SIN hashear
-        $datos = [
-            'numdocUSUARIO' => $_POST['numdocUSUARIO'] ?? '',
-            'tipodocumenUSUARIO' => $_POST['tipodocumenUSUARIO'] ?? 'CC',
-            'nomUSUARIO' => $_POST['nomUSUARIO'] ?? '',
-            'direcUSUARIO' => $_POST['direcUSUARIO'] ?? '',
-            'telUSUARIO' => $_POST['telUSUARIO'] ?? '',
-            'emailUSUARIO' => $_POST['emailUSUARIO'] ?? '',
-            'pass' => $_POST['pass'], // ← AQUÍ VA SIN HASH
-        ];
-
-        // Validar campos vacíos
-        if (empty($datos['nomUSUARIO']) || empty($datos['emailUSUARIO']) || empty($datos['pass'])) {
-            $_SESSION['error'] = 'Todos los campos son requeridos';
-            header('Location: index.php?route=registro');
-            exit;
-        }
-
-        // Validar email duplicado
-        if ($this->usuarioModel->obtenerPorEmail($datos['emailUSUARIO'])) {
-            $_SESSION['error'] = 'El email ya está registrado';
-            header('Location: index.php?route=registro');
-            exit;
-        }
-
-        // Registrar (el modelo hace password_hash correctamente)
-        if ($this->usuarioModel->crear($datos)) {
-            $_SESSION['success'] = 'Registro exitoso. Inicia sesión';
-            header('Location: index.php?route=login');
-            exit;
-        }
-
-        $_SESSION['error'] = 'Error al registrar. Intenta de nuevo';
-        header('Location: index.php?route=registro');
-        exit;
+        return 'views/frontend/registro.php';
     }
 
-    return 'views/frontend/registro.php';
-}
     public function logout() {
         session_destroy();
         header('Location: index.php?route=index');

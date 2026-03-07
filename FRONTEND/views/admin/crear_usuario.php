@@ -85,6 +85,7 @@ if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
                                     <select class="form-select" id="rol" name="rolUSUARIO" required>
                                         <option value="cliente">Cliente</option>
                                         <option value="admin">Administrador</option>
+                                        <option value="empleado">Empleado</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">

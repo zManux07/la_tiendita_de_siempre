@@ -27,7 +27,7 @@
                 </div>
                 <hr class="bg-light">
                 <div class="text-center">
-                    <p>&copy; 2024 La Tiendita de Siempre. Todos los derechos reservados.</p>
+                    <p>&copy; 2026 La Tiendita de Siempre. Todos los derechos reservados.</p>
                 </div>
             </div>
         </footer>

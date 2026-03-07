@@ -6,7 +6,16 @@ class MensajeController {
     public function __construct($mensajeModel) {
         $this->mensajeModel = $mensajeModel;
     }
+    
 
+        private function verificarAdmin() {
+       if (!isset($_SESSION['usuario_rol']) || 
+   ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
+    header('Location: index.php?route=login');
+    exit;
+}
+    }
     public function enviar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $datos = [
@@ -35,14 +44,17 @@ class MensajeController {
         return 'views/frontend/contacto.php';
     }
 
-    public function listar() {
-        if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
-            header('Location: index.php?route=login');
-            exit;
-        }
+public function listar() {
 
-        $mensajes = $this->mensajeModel->obtenerTodos();
+    if (!isset($_SESSION['usuario_rol']) || 
+       ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
 
-        return 'views/admin/mensajes.php';
+        header('Location: index.php?route=login');
+        exit;
     }
+
+    $mensajes = $this->mensajeModel->obtenerTodos();
+
+    return 'views/admin/mensajes.php';
+}
 }

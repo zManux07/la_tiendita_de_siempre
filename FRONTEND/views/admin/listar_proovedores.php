@@ -1,8 +1,15 @@
 <?php
-if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+
+if (!isset($_SESSION['usuario_rol']) || 
+   ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
     header('Location: index.php?route=login');
     exit;
 }
+
+$dashboard = ($_SESSION['usuario_rol'] === 'admin') 
+    ? 'admin/dashboard' 
+    : 'empleado/dashboard';
 require_once __DIR__ . '/../../config/Database.php';
 require_once __DIR__ . '/../../models/ProveedorModel.php';
 
@@ -45,7 +52,7 @@ $proveedores = $proveedorModel->obtenerTodos();
     <h2 class="mb-4">Gestionar Proveedores</h2>
 
     <a href="index.php?route=admin/proveedor/crear" class="btn btn-primary mb-3">+ Crear Proveedor</a>
-    <a href="index.php?route=admin/dashboard" class="btn btn-secondary mb-3">← Volver</a>
+    <a href="index.php?route=<?= $dashboard ?>" class="btn btn-secondary mb-3">← Volver</a>
 
     <table class="table table-bordered table-hover">
         <thead class="table-light">

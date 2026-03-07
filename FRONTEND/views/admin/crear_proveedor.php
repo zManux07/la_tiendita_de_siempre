@@ -1,8 +1,14 @@
 <?php
-if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+
+if (!isset($_SESSION['usuario_rol']) || 
+   ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
     header('Location: index.php?route=login');
     exit;
 }
+$dashboard = ($_SESSION['usuario_rol'] === 'admin') 
+    ? 'admin/dashboard' 
+    : 'empleado/dashboard';
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +70,7 @@ if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
                             </div>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="index.php?route=admin/dashboard" class="btn btn-secondary">Cancelar</a>
+                                <a href="index.php?route=<?= $dashboard ?>" class="btn btn-secondary">Cancelar</a>
                                 <button type="submit" class="btn btn-primary">Crear Proveedor</button>
                             </div>
                         </form>

@@ -99,6 +99,7 @@ switch ($route) {
     case 'admin/dashboard':
         require 'views/admin/dashboard.php';
         break;
+        
 
     case 'admin/producto/crear':
         $controller = new ProductoController(
@@ -379,6 +380,10 @@ case 'admin/pagos/ver':
         $controller->restablecerPassword();
         break;
 
+
+case 'empleado/dashboard':
+    require 'views/empleado/dashboard_empleado.php';
+    break;
 
     default:
         header('Location: index.php?route=index');

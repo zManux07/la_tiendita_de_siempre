@@ -1,7 +1,14 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+
+if (!isset($_SESSION['usuario_rol']) || 
+   ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
+    header('Location: index.php?route=login');
+    exit;
 }
+$dashboard = ($_SESSION['usuario_rol'] === 'admin') 
+    ? 'admin/dashboard' 
+    : 'empleado/dashboard';
 ?>
 
 <!DOCTYPE html>

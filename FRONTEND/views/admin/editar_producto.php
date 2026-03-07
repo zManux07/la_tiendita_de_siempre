@@ -1,8 +1,15 @@
-<?php 
-if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+<?php
+
+if (!isset($_SESSION['usuario_rol']) || 
+   ($_SESSION['usuario_rol'] !== 'admin' && $_SESSION['usuario_rol'] !== 'empleado')) {
+
     header('Location: index.php?route=login');
     exit;
 }
+$dashboard = ($_SESSION['usuario_rol'] === 'admin') 
+    ? 'admin/dashboard' 
+    : 'empleado/dashboard';
+
 require_once 'config/Database.php';
 require_once 'models/ProductoModel.php';
 require_once 'models/CategoriaModel.php';
