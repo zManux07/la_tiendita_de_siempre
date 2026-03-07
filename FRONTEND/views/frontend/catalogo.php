@@ -1,7 +1,20 @@
 <?php include 'header.php'; ?>
 
+
+
 <div class="container my-5">
+    <?php if (isset($_GET['q']) && !empty($_GET['q'])): ?>
+    <h2 class="mb-4">
+        🔍 Resultados para: "<?= htmlspecialchars($_GET['q']) ?>"
+    </h2>
+
+    <a href="index.php?route=catalogo" class="btn btn-sm btn-secondary mb-3">
+        Limpiar búsqueda
+    </a>
+
+<?php else: ?>
     <h2 class="mb-4">Catálogo de Productos</h2>
+<?php endif; ?>
 
     <div class="row">
         <div class="col-md-3 mb-4">
@@ -35,11 +48,22 @@
                 require_once 'models/ProductoModel.php';
                 $productoModel = new ProductoModel($conn);
 
-                if (isset($_GET['categoria'])) {
-                    $productos = $productoModel->obtenerPorCategoria($_GET['categoria']);
-                } else {
-                    $productos = $productoModel->obtenerTodos();
-                }
+                if (isset($_GET['q']) && !empty($_GET['q'])) {
+
+    // BUSQUEDA
+    $productos = $productoModel->buscar($_GET['q']);
+
+} elseif (isset($_GET['categoria'])) {
+
+    // FILTRO POR CATEGORIA
+    $productos = $productoModel->obtenerPorCategoria($_GET['categoria']);
+
+} else {
+
+    // TODOS LOS PRODUCTOS
+    $productos = $productoModel->obtenerTodos();
+
+}
 
                 if (empty($productos)):
                 ?>

@@ -53,4 +53,16 @@ class HomeController {
     public function carrito() {
         return 'views/frontend/carrito.php';
     }
+    public function buscar() {
+        $termino = $_GET['q'] ?? '';
+        
+        if (empty($termino)) {
+            header('Location: index.php?route=catalogo');
+            exit;
+        }
+        
+        $productos = $this->productoModel->buscar($termino);
+        
+        return 'views/frontend/catalogo.php';
+    }
 }

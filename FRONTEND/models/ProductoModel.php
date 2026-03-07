@@ -88,18 +88,7 @@ class ProductoModel {
 }
 
 
-    public function buscar($termino) {
-        $query = "SELECT p.*, c.nomCATEGORIA
-                  FROM producto p
-                  LEFT JOIN categoria c ON p.idCATEGORIA = c.idCATEGORIA
-                  WHERE p.nomPRODUCTO LIKE ? OR p.marcaPRODUCTO LIKE ?
-                  ORDER BY p.nomPRODUCTO ASC";
-
-        $stmt = $this->db->prepare($query);
-        $termino = '%' . $termino . '%';
-        $stmt->execute([$termino, $termino]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+   
     public function actualizar($idProducto, $datos) {
     $query = "UPDATE producto SET 
         nomPRODUCTO = ?, 
@@ -135,5 +124,27 @@ public function eliminar($id)
     $stmt = $this->db->prepare("DELETE FROM producto WHERE idPRODUCTO = ?");
     return $stmt->execute([$id]);
 }
+public function buscar($termino) {
 
+    $query = "SELECT p.*, c.nomCATEGORIA, pr.nomPROVEEDOR
+              FROM producto p
+              LEFT JOIN categoria c ON p.idCATEGORIA = c.idCATEGORIA
+              LEFT JOIN proveedor pr ON p.idPROVEEDOR = pr.idPROVEEDOR
+              WHERE p.nomPRODUCTO LIKE ?
+                 OR p.marcaPRODUCTO LIKE ?
+                 OR p.descPRODUCTO LIKE ?
+              ORDER BY p.nomPRODUCTO ASC";
+
+    $stmt = $this->db->prepare($query);
+
+    $terminoBusqueda = "%{$termino}%";
+
+    $stmt->execute([
+        $terminoBusqueda,
+        $terminoBusqueda,
+        $terminoBusqueda
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

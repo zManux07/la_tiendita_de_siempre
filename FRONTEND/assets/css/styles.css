@@ -373,6 +373,54 @@ footer p {
     display: block;
     margin: 0 auto;
 }
+/* ========== BUSCADOR ========== */
+.search-form {
+    margin: 0 20px;
+}
+
+.search-form .input-group {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.search-form .form-control {
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.search-form .form-control:focus {
+    box-shadow: none;
+    border: none;
+}
+
+.search-form .btn {
+    border: none;
+    padding: 10px 25px;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .search-form {
+        margin: 15px 0;
+        max-width: 100% !important;
+    }
+}
+
+/* Animación al escribir */
+.search-form .form-control:focus {
+    background-color: #f8f9fa;
+}
+
+/* Resaltar término buscado */
+.highlight-search {
+    background-color: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+}
 
 
 

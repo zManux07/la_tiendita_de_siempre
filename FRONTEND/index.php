@@ -48,6 +48,20 @@ switch ($route) {
         $view = $controller->catalogo();
         require $view;
         break;
+        case 'buscar':
+        $controller = new HomeController(new ProductoModel($conn), new CategoriaModel($conn));
+        $termino = $_GET['q'] ?? '';
+        
+        if (!empty($termino)) {
+            $productos = (new ProductoModel($conn))->buscar($termino);
+        } else {
+            $productos = [];
+        }
+        
+        $view = $controller->catalogo();
+        require $view;
+        break;
+    
 
     case 'producto':
         $controller = new HomeController(new ProductoModel($conn), new CategoriaModel($conn));

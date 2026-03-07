@@ -17,7 +17,28 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+
+    <!-- BUSCADOR -->
+    <form class="d-flex mx-auto" action="index.php" method="GET" style="max-width:400px; width:100%;">
+        <input type="hidden" name="route" value="catalogo">
+
+        <div class="input-group">
+            <input 
+                type="text" 
+                class="form-control"
+                name="q"
+                placeholder="🔍 Buscar productos..."
+                value="<?= htmlspecialchars($_GET['q'] ?? '') ?>"
+                required
+            >
+
+            <button class="btn btn-primary" type="submit">
+                Buscar
+            </button>
+        </div>
+    </form>
+
+    <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?route=index">Inicio</a>
                     </li>
