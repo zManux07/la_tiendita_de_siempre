@@ -30,7 +30,10 @@ class CarritoController {
                 'cantidad' => $this->carritoModel->contar($_SESSION['usuario_id'])
             ]);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error al agregar al carrito']);
+            echo json_encode([
+    'success' => false,
+    'message' => 'No hay suficiente stock disponible'
+]);
         }
         exit;
     }

@@ -112,6 +112,12 @@ $proveedores = $proveedorModel->obtenerTodos();
             <img src="<?= $producto['fotoPRODUCTO'] ?>" class="img-fluid rounded mb-2" style="max-width:200px;">
             <input type="file" name="fotoPRODUCTO" class="form-control mt-2">
         </div>
+        <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="destacado" name="destacado" value="1">
+                                <label class="form-check-label" for="destacado">
+                                Mostrar en la página principal (Destacado)
+                                </label>
+</div>
 
         <button class="btn btn-primary">Guardar Cambios</button>
         <a href="index.php?route=admin/dashboard" class="btn btn-secondary">Cancelar</a>

@@ -52,7 +52,7 @@ $items = $carritoModel->obtenerPorUsuario($_SESSION['usuario_id']);
                             </td>
                             <td>$<?= number_format($item['precioPRODUCTO'], 2) ?></td>
                             <td>
-                                <input type="number" class="form-control cantidad" value="<?= $item['cantidad'] ?>" min="1" data-carrito="<?= $item['idCarrito'] ?>" style="width: 70px;">
+                                <input type="number" class="form-control cantidad" value="<?= $item['cantidad'] ?>" min="1"max="<?= $item['cantidadenstockPRODUCTO'] ?>" data-carrito="<?= $item['idCarrito'] ?>" style="width: 70px;">
                             </td>
                             <td class="fw-bold">$<?= number_format($subtotal, 2) ?></td>
                             <td>

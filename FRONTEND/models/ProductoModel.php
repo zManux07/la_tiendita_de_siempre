@@ -132,7 +132,6 @@ public function buscar($termino) {
               LEFT JOIN proveedor pr ON p.idPROVEEDOR = pr.idPROVEEDOR
               WHERE p.nomPRODUCTO LIKE ?
                  OR p.marcaPRODUCTO LIKE ?
-                 OR p.descPRODUCTO LIKE ?
               ORDER BY p.nomPRODUCTO ASC";
 
     $stmt = $this->db->prepare($query);
@@ -140,7 +139,6 @@ public function buscar($termino) {
     $terminoBusqueda = "%{$termino}%";
 
     $stmt->execute([
-        $terminoBusqueda,
         $terminoBusqueda,
         $terminoBusqueda
     ]);

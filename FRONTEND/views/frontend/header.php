@@ -54,10 +54,16 @@
                                 🛒 Carrito
                             </a>
                         </li>
-                        <?php if ($_SESSION['usuario_rol'] === 'admin'): ?>
+                        <?php if ($_SESSION['usuario_rol'] === 'admin' ): ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?route=admin/dashboard">Dashboard</a>
                             </li>
+                    
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'empleado'): ?>
+                                <li class="nav-item">
+                                <a class="nav-link" href="index.php?route=empleado/dashboard">Dashboard</a>
+                                </li>
                         <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?route=logout">Salir</a>

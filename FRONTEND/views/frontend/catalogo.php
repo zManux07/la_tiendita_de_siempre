@@ -68,7 +68,7 @@
                 if (empty($productos)):
                 ?>
                     <div class="col-12">
-                        <div class="alert alert-info">No hay productos disponibles en esta categoría</div>
+                        <div class="alert alert-info">No hay resultados de busqueda</div>
                     </div>
                 <?php else:
                     foreach ($productos as $producto):
